@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeautyAgenda - Wireframe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .screen {
+            transition: all 0.3s ease-in-out;
+        }
+        .screen.hidden {
+            opacity: 0;
+            transform: translateX(100%);
+            pointer-events: none;
+        }
+        .floating-btn {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .appointment-card {
+            transition: transform 0.2s ease;
+        }
+        .appointment-card:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-pink-50 to-purple-50 min-h-screen font-sans">
+    <!-- Tela de Login -->
+    <div id="login-screen" class="screen max-w-md mx-auto bg-white min-h-screen shadow-xl">
+        <!-- Header com Logo -->
+        <div class="bg-gradient-to-br from-pink-500 via-purple-600 to-indigo-600 text-white p-8 text-center">
+            <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <span class="text-4xl">✨</span>
+            </div>
+            <h1 class="text-3xl font-bold mb-2">BeautyAgenda</h1>
+            <p class="text-pink-100 text-sm">Organize sua agenda de beleza</p>
+        </div>
+
+        <!-- Formulário de Login -->
+        <div class="p-8">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Bem-vindo de volta!</h2>
+                <p class="text-gray-600">Entre na sua conta para continuar</p>
+            </div>
+
+            <form class="space-y-6">
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">E-mail</label>
+                    <input type="email" placeholder="seu@email.com" class="w-full p-4 border border-gray-300 rounded-xl focus:border-pink-500 focus:outline-none transition-colors bg-gray-50">
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Senha</label>
+                    <input type="password" placeholder="••••••••" class="w-full p-4 border border-gray-300 rounded-xl focus:border-pink-500 focus:outline-none transition-colors bg-gray-50">
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <label class="flex items-center">
+                        <input type="checkbox" class="w-4 h-4 text-pink-500 border-gray-300 rounded focus:ring-pink-500">
+                        <span class="ml-2 text-sm text-gray-600">Lembrar de mim</span>
+                    </label>
+                    <a href="#" class="text-sm text-pink-500 hover:text-pink-600">Esqueceu a senha?</a>
+                </div>
+
+                <button type="button" onclick="login()" class="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105">
+                    Entrar
+                </button>
+            </form>
+
+            <!-- Divisor -->
+            <div class="flex items-center my-8">
+                <div class="flex-1 border-t border-gray-300"></div>
+                <span class="px-4 text-gray-500 text-sm">ou</span>
+                <div class="flex-1 border-t border-gray-300"></div>
+            </div>
+
+            <!-- Botão de Cadastro -->
+            <button onclick="showScreen('register-screen')" class="w-full bg-white border-2 border-pink-500 text-pink-500 py-4 rounded-xl font-semibold text-lg hover:bg-pink-50 transition-all duration-200">
+                Criar nova conta
+            </button>
+
+            <!-- Links adicionais -->
+            <div class="text-center mt-8 space-y-2">
+                <p class="text-xs text-gray-500">Ao continuar, você concorda com nossos</p>
+                <div class="space-x-4">
+                    <a href="#" class="text-xs text-pink-500 hover:text-pink-600">Termos de Uso</a>
+                    <a href="#" class="text-xs text-pink-500 hover:text-pink-600">Política de Privacidade</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tela de Cadastro -->
+    <div id="register-screen" class="screen hidden max-w-md mx-auto bg-white min-h-screen shadow-xl">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-pink-500 to-purple-600 text-white p-4 flex items-center">
+            <button onclick="showScreen('login-screen')" class="mr-4 text-white text-xl">←</button>
+            <h1 class="text-xl font-bold">Criar Conta</h1>
+        </div>
+
+        <!-- Formulário de Cadastro -->
+        <div class="p-6 pb-8">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Junte-se ao BeautyAgenda</h2>
+                <p class="text-gray-600">Preencha os dados para criar sua conta</p>
+            </div>
+
+            <form class="space-y-5">
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Nome Completo</label>
+                    <input type="text" placeholder="Seu nome completo" class="w-full p-4 border border-gray-300 rounded-xl focus:border-pink-500 focus:outline-none transition-colors bg-gray-50">
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">E-mail</label>
+                    <input type="email" placeholder="seu@email.com" class="w-full p-4 border border-gray-300 rounded-xl focus:border-pink-500 focus:outline-none transition-colors bg-gray-50">
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Telefone</label>
+                    <input type="tel" placeholder="(11) 99999-9999" class="w-full p-4 border border-gray-300 rounded-xl focus:border-pink-500 focus:outline-none transition-colors bg-gray-50">
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Tipo de Conta</label>
+                    <select class="w-full p-4 border border-gray-300 rounded-xl focus:border-pink-500 focus:outline-none transition-colors bg-gray-50">
+                        <option>Selecione o tipo</option>
+                        <option>💼 Profissional/Salão</option>
+                        <option>👤 Cliente</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Senha</label>
+                    <input type="password" placeholder="Mínimo 8 caracteres" class="w-full p-4 border border-gray-300 rounded-xl focus:border-pink-500 focus:outline-none transition-colors bg-gray-50">
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Confirmar Senha</label>
+                    <input type="password" placeholder="Digite a senha novamente" class="w-full p-4 border border-gray-300 rounded-xl focus:border-pink-500 focus:outline-none transition-colors bg-gray-50">
+                </div>
+
+                <div class="flex items-start space-x-3 pt-2">
+                    <input type="checkbox" class="w-4 h-4 text-pink-500 border-gray-300 rounded focus:ring-pink-500 mt-1">
+                    <label class="text-sm text-gray-600">
+                        Eu concordo com os <a href="#" class="text-pink-500 hover:text-pink-600">Termos de Uso</a> e 
+                        <a href="#" class="text-pink-500 hover:text-pink-600">Política de Privacidade</a>
+                    </label>
+                </div>
+
+                <button type="button" onclick="register()" class="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105 mt-6">
+                    Criar Conta
+                </button>
+            </form>
+
+            <div class="text-center mt-6">
+                <p class="text-gray-600">Já tem uma conta?</p>
+                <button onclick="showScreen('login-screen')" class="text-pink-500 hover:text-pink-600 font-semibold">
+                    Fazer login
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tela Inicial (Home) -->
+    <div id="home-screen" class="screen hidden max-w-md mx-auto bg-white min-h-screen shadow-xl">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-pink-500 to-purple-600 text-white p-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+                    <span class="text-pink-500 text-lg">✨</span>
+                </div>
+                <h1 class="text-xl font-bold">BeautyAgenda</h1>
+            </div>
+            <div class="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                <span class="text-white text-lg">👤</span>
+            </div>
+        </div>
+
+        <!-- Área Central -->
+        <div class="p-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Agenda de Hoje</h2>
+            <div class="text-sm text-gray-500 mb-4">📅 Segunda-feira, 15 de Janeiro</div>
+            
+            <!-- Agendamentos do Dia -->
+            <div class="space-y-4 mb-8">
+                <div class="appointment-card bg-gradient-to-r from-pink-100 to-purple-100 p-4 rounded-xl border-l-4 border-pink-500">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="font-semibold text-gray-800">09:00 - Maria Silva</div>
+                            <div class="text-gray-600 text-sm">Corte de cabelo</div>
+                            <div class="text-pink-600 text-xs mt-1">👩‍💼 Ana (Cabeleireira)</div>
+                        </div>
+                        <div class="text-pink-500 text-sm font-medium">1h</div>
+                    </div>
+                </div>
+
+                <div class="appointment-card bg-gradient-to-r from-blue-100 to-indigo-100 p-4 rounded-xl border-l-4 border-blue-500">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="font-semibold text-gray-800">11:30 - João Santos</div>
+                            <div class="text-gray-600 text-sm">Corte + Barba</div>
+                            <div class="text-blue-600 text-xs mt-1">👨‍💼 Carlos (Barbeiro)</div>
+                        </div>
+                        <div class="text-blue-500 text-sm font-medium">45min</div>
+                    </div>
+                </div>
+
+                <div class="appointment-card bg-gradient-to-r from-green-100 to-emerald-100 p-4 rounded-xl border-l-4 border-green-500">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="font-semibold text-gray-800">14:00 - Carla Oliveira</div>
+                            <div class="text-gray-600 text-sm">Manicure + Pedicure</div>
+                            <div class="text-green-600 text-xs mt-1">💅 Lucia (Manicure)</div>
+                        </div>
+                        <div class="text-green-500 text-sm font-medium">1h30</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botão Novo Agendamento -->
+            <button onclick="showScreen('add-screen')" class="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105">
+                ➕ Novo Agendamento
+            </button>
+        </div>
+
+        <!-- Menu Rodapé -->
+        <div class="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md bg-white border-t border-gray-200 px-6 py-3">
+            <div class="flex justify-around">
+                <button onclick="showScreen('home-screen')" class="flex flex-col items-center space-y-1 text-pink-500">
+                    <span class="text-xl">🏠</span>
+                    <span class="text-xs font-medium">Home</span>
+                </button>
+                <button onclick="showScreen('agenda-screen')" class="flex flex-col items-center space-y-1 text-gray-400 hover:text-pink-500 transition-colors">
+                    <span class="text-xl">📅</span>
+                    <span class="text-xs font-medium">Agenda</span>
+                </button>
+                <button onclick="showScreen('notifications-screen')" class="flex flex-col items-center space-y-1 text-gray-400 hover:text-pink-500 transition-colors">
+                    <span class="text-xl">🔔</span>
+                    <span class="text-xs font-medium">Avisos</span>
+                </button>
+                <button onclick="showScreen('feedback-screen')" class="flex flex-col items-center space-y-1 text-gray-400 hover:text-pink-500 transition-colors">
+                    <span class="text-xl">💬</span>
+                    <span class="text-xs font-medium">Feedback</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tela de Adicionar/Editar Agendamento -->
+    <div id="add-screen" class="screen hidden max-w-md mx-auto bg-white min-h-screen shadow-xl">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-pink-500 to-purple-600 text-white p-4 flex items-center">
+            <button onclick="showScreen('home-screen')" class="mr-4 text-white text-xl">←</button>
+            <h1 class="text-xl font-bold">Novo Agendamento</h1>
+        </div>
+
+        <!-- Formulário -->
+        <div class="p-6 pb-24">
+            <form class="space-y-6">
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Nome do Cliente</label>
+                    <input type="text" placeholder="Digite o nome completo" class="w-full p-4 border border-gray-300 rounded-xl focus:border-pink-500 focus:outline-none transition-colors">
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Serviço</label>
+                    <select class="w-full p-4 border border-gray-300 rounded-xl focus:border-pink-500 focus:outline-none transition-colors">
+                        <option>Selecione o serviço</option>
+                        <option>Corte de cabelo</option>
+                        <option>Corte + Escova</option>
+                        <option>Coloração</option>
+                        <option>Manicure</option>
+                        <option>Pedicure</option>
+                        <option>Manicure + Pedicure</option>
+                        <option>Sobrancelha</option>
+                        <option>Barba</option>
+                        <option>Corte + Barba</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Data</label>
+                        <input type="date" class="w-full p-4 border border-gray-300 rounded-xl focus:border-pink-500 focus:outline-none transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Horário</label>
+                        <input type="time" class="w-full p-4 border border-gray-300 rounded-xl focus:border-pink-500 focus:outline-none transition-colors">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Profissional</label>
+                    <select class="w-full p-4 border border-gray-300 rounded-xl focus:border-pink-500 focus:outline-none transition-colors">
+                        <option>Selecione o profissional</option>
+                        <option>👩‍💼 Ana - Cabeleireira</option>
+                        <option>👨‍💼 Carlos - Barbeiro</option>
+                        <option>💅 Lucia - Manicure</option>
+                        <option>✨ Patricia - Esteticista</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Observações (opcional)</label>
+                    <textarea placeholder="Adicione observações sobre o atendimento..." class="w-full p-4 border border-gray-300 rounded-xl focus:border-pink-500 focus:outline-none transition-colors h-24 resize-none"></textarea>
+                </div>
+
+                <!-- Botões -->
+                <div class="flex space-x-4 pt-4">
+                    <button type="button" onclick="showScreen('home-screen')" class="flex-1 bg-gray-200 text-gray-700 py-4 rounded-xl font-semibold hover:bg-gray-300 transition-colors">
+                        Cancelar
+                    </button>
+                    <button type="submit" onclick="saveAppointment()" class="flex-1 bg-gradient-to-r from-pink-500 to-purple-600 text-white py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all">
+                        Salvar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tela de Lista/Agenda -->
+    <div id="agenda-screen" class="screen hidden max-w-md mx-auto bg-white min-h-screen shadow-xl">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-pink-500 to-purple-600 text-white p-4">
+            <h1 class="text-xl font-bold mb-4">Agenda Completa</h1>
+            
+            <!-- Filtros -->
+            <div class="flex space-x-2">
+                <select class="flex-1 p-2 rounded-lg text-gray-700 text-sm">
+                    <option>Todos os profissionais</option>
+                    <option>Ana - Cabeleireira</option>
+                    <option>Carlos - Barbeiro</option>
+                    <option>Lucia - Manicure</option>
+                </select>
+                <select class="flex-1 p-2 rounded-lg text-gray-700 text-sm">
+                    <option>Todos os serviços</option>
+                    <option>Corte de cabelo</option>
+                    <option>Manicure</option>
+                    <option>Barba</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Lista de Agendamentos -->
+        <div class="p-4 pb-24">
+            <!-- Hoje -->
+            <div class="mb-6">
+                <h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                    <span class="w-3 h-3 bg-pink-500 rounded-full mr-2"></span>
+                    Hoje - 15/01
+                </h3>
+                <div class="space-y-3">
+                    <div class="appointment-card bg-white border border-gray-200 p-4 rounded-xl shadow-sm">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="font-semibold text-gray-800">09:00 - Maria Silva</div>
+                                <div class="text-gray-600 text-sm">Corte de cabelo</div>
+                                <div class="text-pink-600 text-xs mt-1">👩‍💼 Ana</div>
+                            </div>
+                            <div class="text-pink-500 text-sm">1h</div>
+                        </div>
+                    </div>
+                    <div class="appointment-card bg-white border border-gray-200 p-4 rounded-xl shadow-sm">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="font-semibold text-gray-800">11:30 - João Santos</div>
+                                <div class="text-gray-600 text-sm">Corte + Barba</div>
+                                <div class="text-blue-600 text-xs mt-1">👨‍💼 Carlos</div>
+                            </div>
+                            <div class="text-blue-500 text-sm">45min</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Amanhã -->
+            <div class="mb-6">
+                <h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                    <span class="w-3 h-3 bg-blue-500 rounded-full mr-2"></span>
+                    Amanhã - 16/01
+                </h3>
+                <div class="space-y-3">
+                    <div class="appointment-card bg-white border border-gray-200 p-4 rounded-xl shadow-sm">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="font-semibold text-gray-800">10:00 - Sandra Costa</div>
+                                <div class="text-gray-600 text-sm">Coloração + Corte</div>
+                                <div class="text-pink-600 text-xs mt-1">👩‍💼 Ana</div>
+                            </div>
+                            <div class="text-pink-500 text-sm">2h</div>
+                        </div>
+                    </div>
+                    <div class="appointment-card bg-white border border-gray-200 p-4 rounded-xl shadow-sm">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="font-semibold text-gray-800">15:00 - Roberto Lima</div>
+                                <div class="text-gray-600 text-sm">Corte</div>
+                                <div class="text-blue-600 text-xs mt-1">👨‍💼 Carlos</div>
+                            </div>
+                            <div class="text-blue-500 text-sm">30min</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botão Flutuante -->
+        <button onclick="showScreen('add-screen')" class="floating-btn fixed bottom-20 right-6 w-14 h-14 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full flex items-center justify-center text-2xl hover:scale-110 transition-transform">
+            ➕
+        </button>
+
+        <!-- Menu Rodapé -->
+        <div class="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md bg-white border-t border-gray-200 px-6 py-3">
+            <div class="flex justify-around">
+                <button onclick="showScreen('home-screen')" class="flex flex-col items-center space-y-1 text-gray-400 hover:text-pink-500 transition-colors">
+                    <span class="text-xl">🏠</span>
+                    <span class="text-xs font-medium">Home</span>
+                </button>
+                <button onclick="showScreen('agenda-screen')" class="flex flex-col items-center space-y-1 text-pink-500">
+                    <span class="text-xl">📅</span>
+                    <span class="text-xs font-medium">Agenda</span>
+                </button>
+                <button onclick="showScreen('notifications-screen')" class="flex flex-col items-center space-y-1 text-gray-400 hover:text-pink-500 transition-colors">
+                    <span class="text-xl">🔔</span>
+                    <span class="text-xs font-medium">Avisos</span>
+                </button>
+                <button onclick="showScreen('feedback-screen')" class="flex flex-col items-center space-y-1 text-gray-400 hover:text-pink-500 transition-colors">
+                    <span class="text-xl">💬</span>
+                    <span class="text-xs font-medium">Feedback</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tela de Notificações -->
+    <div id="notifications-screen" class="screen hidden max-w-md mx-auto bg-white min-h-screen shadow-xl">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-pink-500 to-purple-600 text-white p-4 flex items-center justify-between">
+            <div class="flex items-center">
+                <button onclick="showScreen('home-screen')" class="mr-4 text-white text-xl">←</button>
+                <h1 class="text-xl font-bold">Notificações</h1>
+            </div>
+            <button onclick="markAllAsRead()" class="text-sm bg-white bg-opacity-20 px-3 py-1 rounded-full hover:bg-opacity-30 transition-colors">
+                Marcar todas como lidas
+            </button>
+        </div>
+
+        <!-- Filtros -->
+        <div class="p-4 bg-gray-50 border-b">
+            <div class="flex space-x-2">
+                <button onclick="filterNotifications('all')" id="filter-all" class="px-4 py-2 bg-pink-500 text-white rounded-lg text-sm font-medium transition-colors">
+                    Todas
+                </button>
+                <button onclick="filterNotifications('appointments')" id="filter-appointments" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-300 transition-colors">
+                    Agendamentos
+                </button>
+                <button onclick="filterNotifications('reminders')" id="filter-reminders" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-300 transition-colors">
+                    Lembretes
+                </button>
+                <button onclick="filterNotifications('system')" id="filter-system" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-300 transition-colors">
+                    Sistema
+                </button>
+            </div>
+        </div>
+
+        <!-- Lista de Notificações -->
+        <div class="pb-24">
+            <!-- Hoje -->
+            <div class="p-4">
+                <h3 class="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wide">Hoje</h3>
+                
+                <!-- Notificação Nova -->
+                <div class="notification-item appointments bg-blue-50 border-l-4 border-blue-500 p-4 mb-3 rounded-r-xl relative">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="text-white text-lg">📅</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between mb-1">
+                                <h4 class="font-semibold text-gray-800">Novo agendamento confirmado</h4>
+                                <span class="text-xs text-gray-500">há 5 min</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-2">Maria Silva confirmou o agendamento para corte de cabelo amanhã às 09:00</p>
+                            <div class="flex space-x-2">
+                                <button onclick="viewAppointment('123')" class="text-blue-600 text-xs font-medium hover:text-blue-700">Ver detalhes</button>
+                                <button onclick="markAsRead(this)" class="text-gray-500 text-xs hover:text-gray-700">Marcar como lida</button>
+                            </div>
+                        </div>
+                        <div class="w-3 h-3 bg-blue-500 rounded-full flex-shrink-0"></div>
+                    </div>
+                </div>
+
+                <!-- Notificação de Lembrete -->
+                <div class="notification-item reminders bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-3 rounded-r-xl relative">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="text-white text-lg">⏰</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between mb-1">
+                                <h4 class="font-semibold text-gray-800">Lembrete de agendamento</h4>
+                                <span class="text-xs text-gray-500">há 15 min</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-2">João Santos tem agendamento em 1 hora (11:30 - Corte + Barba)</p>
+                            <div class="flex space-x-2">
+                                <button onclick="sendReminder('456')" class="text-yellow-600 text-xs font-medium hover:text-yellow-700">Enviar lembrete</button>
+                                <button onclick="markAsRead(this)" class="text-gray-500 text-xs hover:text-gray-700">Marcar como lida</button>
+                            </div>
+                        </div>
+                        <div class="w-3 h-3 bg-yellow-500 rounded-full flex-shrink-0"></div>
+                    </div>
+                </div>
+
+                <!-- Notificação de Cancelamento -->
+                <div class="notification-item appointments bg-red-50 border-l-4 border-red-500 p-4 mb-3 rounded-r-xl">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="text-white text-lg">❌</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between mb-1">
+                                <h4 class="font-semibold text-gray-800">Agendamento cancelado</h4>
+                                <span class="text-xs text-gray-500">há 30 min</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-2">Pedro Costa cancelou o agendamento de hoje às 16:00</p>
+                            <div class="flex space-x-2">
+                                <button onclick="reschedule('789')" class="text-red-600 text-xs font-medium hover:text-red-700">Reagendar</button>
+                                <button onclick="markAsRead(this)" class="text-gray-500 text-xs hover:text-gray-700">Marcar como lida</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ontem -->
+            <div class="p-4">
+                <h3 class="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wide">Ontem</h3>
+                
+                <!-- Notificação de Sistema -->
+                <div class="notification-item system bg-purple-50 border-l-4 border-purple-500 p-4 mb-3 rounded-r-xl">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="text-white text-lg">🔄</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between mb-1">
+                                <h4 class="font-semibold text-gray-800">Atualização do sistema</h4>
+                                <span class="text-xs text-gray-500">ontem</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-2">Nova versão disponível com melhorias na agenda e relatórios</p>
+                            <div class="flex space-x-2">
+                                <button onclick="viewUpdate()" class="text-purple-600 text-xs font-medium hover:text-purple-700">Ver novidades</button>
+                                <button onclick="markAsRead(this)" class="text-gray-500 text-xs hover:text-gray-700">Marcar como lida</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notificação de Pagamento -->
+                <div class="notification-item system bg-green-50 border-l-4 border-green-500 p-4 mb-3 rounded-r-xl">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="text-white text-lg">💳</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between mb-1">
+                                <h4 class="font-semibold text-gray-800">Pagamento processado</h4>
+                                <span class="text-xs text-gray-500">ontem</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-2">Mensalidade do plano Profissional processada com sucesso</p>
+                            <div class="flex space-x-2">
+                                <button onclick="viewInvoice()" class="text-green-600 text-xs font-medium hover:text-green-700">Ver fatura</button>
+                                <button onclick="markAsRead(this)" class="text-gray-500 text-xs hover:text-gray-700">Marcar como lida</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notificação de Avaliação -->
+                <div class="notification-item appointments bg-orange-50 border-l-4 border-orange-500 p-4 mb-3 rounded-r-xl">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="text-white text-lg">⭐</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between mb-1">
+                                <h4 class="font-semibold text-gray-800">Nova avaliação recebida</h4>
+                                <span class="text-xs text-gray-500">ontem</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-2">Carla Oliveira avaliou o atendimento com 5 estrelas</p>
+                            <div class="flex space-x-2">
+                                <button onclick="viewReview()" class="text-orange-600 text-xs font-medium hover:text-orange-700">Ver avaliação</button>
+                                <button onclick="markAsRead(this)" class="text-gray-500 text-xs hover:text-gray-700">Marcar como lida</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Esta Semana -->
+            <div class="p-4">
+                <h3 class="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wide">Esta Semana</h3>
+                
+                <!-- Notificação de Relatório -->
+                <div class="notification-item system bg-indigo-50 border-l-4 border-indigo-500 p-4 mb-3 rounded-r-xl">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-10 h-10 bg-indigo-500 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="text-white text-lg">📊</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between mb-1">
+                                <h4 class="font-semibold text-gray-800">Relatório semanal disponível</h4>
+                                <span class="text-xs text-gray-500">3 dias atrás</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-2">Seu relatório de desempenho da semana está pronto para visualização</p>
+                            <div class="flex space-x-2">
+                                <button onclick="viewReport()" class="text-indigo-600 text-xs font-medium hover:text-indigo-700">Ver relatório</button>
+                                <button onclick="markAsRead(this)" class="text-gray-500 text-xs hover:text-gray-700">Marcar como lida</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notificação de Backup -->
+                <div class="notification-item system bg-gray-50 border-l-4 border-gray-500 p-4 mb-3 rounded-r-xl">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-10 h-10 bg-gray-500 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="text-white text-lg">💾</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between mb-1">
+                                <h4 class="font-semibold text-gray-800">Backup realizado</h4>
+                                <span class="text-xs text-gray-500">5 dias atrás</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-2">Backup automático dos seus dados foi concluído com sucesso</p>
+                            <div class="flex space-x-2">
+                                <button onclick="markAsRead(this)" class="text-gray-500 text-xs hover:text-gray-700">Marcar como lida</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Estado Vazio (quando não há notificações) -->
+            <div id="empty-notifications" class="hidden text-center py-16 px-6">
+                <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-4xl text-gray-400">🔔</span>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Nenhuma notificação</h3>
+                <p class="text-gray-600">Você está em dia! Não há notificações pendentes.</p>
+            </div>
+        </div>
+
+        <!-- Menu Rodapé -->
+        <div class="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md bg-white border-t border-gray-200 px-6 py-3">
+            <div class="flex justify-around">
+                <button onclick="showScreen('home-screen')" class="flex flex-col items-center space-y-1 text-gray-400 hover:text-pink-500 transition-colors">
+                    <span class="text-xl">🏠</span>
+                    <span class="text-xs font-medium">Home</span>
+                </button>
+                <button onclick="showScreen('agenda-screen')" class="flex flex-col items-center space-y-1 text-gray-400 hover:text-pink-500 transition-colors">
+                    <span class="text-xl">📅</span>
+                    <span class="text-xs font-medium">Agenda</span>
+                </button>
+                <button onclick="showScreen('notifications-screen')" class="flex flex-col items-center space-y-1 text-pink-500">
+                    <span class="text-xl">🔔</span>
+                    <span class="text-xs font-medium">Avisos</span>
+                </button>
+                <button onclick="showScreen('feedback-screen')" class="flex flex-col items-center space-y-1 text-gray-400 hover:text-pink-500 transition-colors">
+                    <span class="text-xl">💬</span>
+                    <span class="text-xs font-medium">Feedback</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tela de Feedback -->
+    <div id="feedback-screen" class="screen hidden max-w-md mx-auto bg-white min-h-screen shadow-xl">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-pink-500 to-purple-600 text-white p-4 flex items-center">
+            <button onclick="showScreen('home-screen')" class="mr-4 text-white text-xl">←</button>
+            <h1 class="text-xl font-bold">Feedback & Suporte</h1>
+        </div>
+
+        <!-- Conteúdo Principal -->
+        <div class="p-6 pb-24">
+            <!-- Introdução -->
+            <div class="text-center mb-8">
+                <div class="w-20 h-20 bg-gradient-to-br from-pink-100 to-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-4xl">💬</span>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Sua opinião é importante!</h2>
+                <p class="text-gray-600">Ajude-nos a melhorar o BeautyAgenda com seu feedback</p>
+            </div>
+
+            <!-- Opções de Feedback -->
+            <div class="space-y-4 mb-8">
+                <!-- Avaliação Geral -->
+                <div class="bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-2xl p-6">
+                    <div class="flex items-center mb-4">
+                        <span class="text-2xl mr-3">⭐</span>
+                        <div>
+                            <h3 class="font-bold text-gray-800">Avaliar o App</h3>
+                            <p class="text-gray-600 text-sm">Como você avalia sua experiência?</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Estrelas de Avaliação -->
+                    <div class="flex justify-center space-x-2 mb-4" id="star-rating">
+                        <button onclick="setRating(1)" class="star text-3xl text-gray-300 hover:text-yellow-400 transition-colors">⭐</button>
+                        <button onclick="setRating(2)" class="star text-3xl text-gray-300 hover:text-yellow-400 transition-colors">⭐</button>
+                        <button onclick="setRating(3)" class="star text-3xl text-gray-300 hover:text-yellow-400 transition-colors">⭐</button>
+                        <button onclick="setRating(4)" class="star text-3xl text-gray-300 hover:text-yellow-400 transition-colors">⭐</button>
+                        <button onclick="setRating(5)" class="star text-3xl text-gray-300 hover:text-yellow-400 transition-colors">⭐</button>
+                    </div>
+                    
+                    <div id="rating-text" class="text-center text-gray-600 text-sm mb-4">Toque nas estrelas para avaliar</div>
+                    
+                    <button onclick="submitRating()" id="submit-rating" class="w-full bg-yellow-500 text-white py-3 rounded-xl font-semibold opacity-50 cursor-not-allowed" disabled>
+                        Enviar Avaliação
+                    </button>
+                </div>
+
+                <!-- Reportar Problema -->
+                <div class="bg-gradient-to-r from-red-50 to-pink-50 border border-red-200 rounded-2xl p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <span class="text-2xl mr-3">🐛</span>
+                            <div>
+                                <h3 class="font-bold text-gray-800">Reportar Problema</h3>
+                                <p class="text-gray-600 text-sm">Encontrou algum bug ou erro?</p>
+                            </div>
+                        </div>
+                        <button onclick="showFeedbackForm('bug')" class="bg-red-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-600 transition-colors">
+                            Reportar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sugerir Melhoria -->
+                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <span class="text-2xl mr-3">💡</span>
+                            <div>
+                                <h3 class="font-bold text-gray-800">Sugerir Melhoria</h3>
+                                <p class="text-gray-600 text-sm">Tem uma ideia para melhorar o app?</p>
+                            </div>
+                        </div>
+                        <button onclick="showFeedbackForm('suggestion')" class="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-600 transition-colors">
+                            Sugerir
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Elogio -->
+                <div class="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-2xl p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <span class="text-2xl mr-3">👏</span>
+                            <div>
+                                <h3 class="font-bold text-gray-800">Enviar Elogio</h3>
+                                <p class="text-gray-600 text-sm">Gostou de algo específico?</p>
+                            </div>
+                        </div>
+                        <button onclick="showFeedbackForm('compliment')" class="bg-green-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-600 transition-colors">
+                            Elogiar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contato Direto -->
+            <div class="bg-gray-50 rounded-2xl p-6 mb-6">
+                <h3 class="font-bold text-gray-800 mb-4 flex items-center">
+                    <span class="text-xl mr-2">📞</span>
+                    Precisa de ajuda imediata?
+                </h3>
+                
+                <div class="space-y-3">
+                    <button onclick="openWhatsApp()" class="w-full bg-green-500 text-white py-3 rounded-xl font-semibold flex items-center justify-center space-x-2 hover:bg-green-600 transition-colors">
+                        <span>📱</span>
+                        <span>WhatsApp Suporte</span>
+                    </button>
+                    
+                    <button onclick="sendEmail()" class="w-full bg-blue-500 text-white py-3 rounded-xl font-semibold flex items-center justify-center space-x-2 hover:bg-blue-600 transition-colors">
+                        <span>📧</span>
+                        <span>Enviar E-mail</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- FAQ Rápido -->
+            <div class="mb-6">
+                <h3 class="font-bold text-gray-800 mb-4 flex items-center">
+                    <span class="text-xl mr-2">❓</span>
+                    Perguntas Frequentes
+                </h3>
+                
+                <div class="space-y-3">
+                    <details class="bg-white border border-gray-200 p-4 rounded-xl">
+                        <summary class="font-semibold text-gray-800 cursor-pointer flex items-center">
+                            <span class="mr-2">📅</span>
+                            Como cancelar um agendamento?
+                        </summary>
+                        <p class="text-gray-600 text-sm mt-3 ml-6">Vá até a agenda, toque no agendamento e selecione "Cancelar". O cliente será notificado automaticamente.</p>
+                    </details>
+                    
+                    <details class="bg-white border border-gray-200 p-4 rounded-xl">
+                        <summary class="font-semibold text-gray-800 cursor-pointer flex items-center">
+                            <span class="mr-2">🔔</span>
+                            Como ativar lembretes automáticos?
+                        </summary>
+                        <p class="text-gray-600 text-sm mt-3 ml-6">Acesse Configurações > Notificações e ative os lembretes por WhatsApp ou SMS.</p>
+                    </details>
+                    
+                    <details class="bg-white border border-gray-200 p-4 rounded-xl">
+                        <summary class="font-semibold text-gray-800 cursor-pointer flex items-center">
+                            <span class="mr-2">💳</span>
+                            Como alterar meu plano?
+                        </summary>
+                        <p class="text-gray-600 text-sm mt-3 ml-6">Vá em Perfil > Planos e escolha o novo plano. A mudança é imediata.</p>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Histórico de Feedbacks -->
+            <div class="bg-purple-50 border border-purple-200 rounded-2xl p-6">
+                <h3 class="font-bold text-gray-800 mb-4 flex items-center">
+                    <span class="text-xl mr-2">📋</span>
+                    Seus Feedbacks Enviados
+                </h3>
+                
+                <div class="space-y-3" id="feedback-history">
+                    <div class="bg-white p-3 rounded-lg border border-purple-100">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm font-medium text-gray-800">Sugestão de melhoria</span>
+                            <span class="text-xs text-green-600 bg-green-100 px-2 py-1 rounded-full">Implementado</span>
+                        </div>
+                        <p class="text-xs text-gray-600">Adicionar filtro por profissional na agenda</p>
+                        <span class="text-xs text-gray-400">há 2 semanas</span>
+                    </div>
+                    
+                    <div class="bg-white p-3 rounded-lg border border-purple-100">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm font-medium text-gray-800">Avaliação do app</span>
+                            <span class="text-xs text-blue-600 bg-blue-100 px-2 py-1 rounded-full">Respondido</span>
+                        </div>
+                        <p class="text-xs text-gray-600">⭐⭐⭐⭐⭐ Excelente aplicativo!</p>
+                        <span class="text-xs text-gray-400">há 1 mês</span>
+                    </div>
+                </div>
+                
+                <button onclick="viewAllFeedbacks()" class="w-full mt-4 text-purple-600 font-medium text-sm hover:text-purple-700 transition-colors">
+                    Ver todos os feedbacks →
+                </button>
+            </div>
+        </div>
+
+        <!-- Menu Rodapé -->
+        <div class="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md bg-white border-t border-gray-200 px-6 py-3">
+            <div class="flex justify-around">
+                <button onclick="showScreen('home-screen')" class="flex flex-col items-center space-y-1 text-gray-400 hover:text-pink-500 transition-colors">
+                    <span class="text-xl">🏠</span>
+                    <span class="text-xs font-medium">Home</span>
+                </button>
+                <button onclick="showScreen('agenda-screen')" class="flex flex-col items-center space-y-1 text-gray-400 hover:text-pink-500 transition-colors">
+                    <span class="text-xl">📅</span>
+                    <span class="text-xs font-medium">Agenda</span>
+                </button>
+                <button onclick="showScreen('notifications-screen')" class="flex flex-col items-center space-y-1 text-gray-400 hover:text-pink-500 transition-colors">
+                    <span class="text-xl">🔔</span>
+                    <span class="text-xs font-medium">Avisos</span>
+                </button>
+                <button onclick="showScreen('feedback-screen')" class="flex flex-col items-center space-y-1 text-pink-500">
+                    <span class="text-xl">💬</span>
+                    <span class="text-xs font-medium">Feedback</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Formulário de Feedback -->
+    <div id="feedback-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+            <!-- Header do Modal -->
+            <div class="bg-gradient-to-r from-pink-500 to-purple-600 text-white p-4 rounded-t-2xl flex items-center justify-between">
+                <h2 id="modal-title" class="text-lg font-bold">Enviar Feedback</h2>
+                <button onclick="closeFeedbackModal()" class="text-white text-xl hover:text-gray-200">×</button>
+            </div>
+            
+            <!-- Conteúdo do Modal -->
+            <div class="p-6">
+                <form id="feedback-form" class="space-y-4">
+                    <!-- Tipo de Feedback (hidden) -->
+                    <input type="hidden" id="feedback-type" value="">
+                    
+                    <!-- Categoria (para bugs) -->
+                    <div id="category-section" class="hidden">
+                        <label class="block text-gray-700 font-semibold mb-2">Categoria do Problema</label>
+                        <select id="bug-category" class="w-full p-3 border border-gray-300 rounded-xl focus:border-pink-500 focus:outline-none">
+                            <option value="">Selecione a categoria</option>
+                            <option value="login">Login/Cadastro</option>
+                            <option value="agenda">Agenda/Agendamentos</option>
+                            <option value="notifications">Notificações</option>
+                            <option value="payments">Pagamentos</option>
+                            <option value="performance">Performance/Lentidão</option>
+                            <option value="interface">Interface/Design</option>
+                            <option value="other">Outro</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Prioridade (para bugs) -->
+                    <div id="priority-section" class="hidden">
+                        <label class="block text-gray-700 font-semibold mb-2">Urgência</label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button type="button" onclick="setPriority('low')" class="priority-btn p-3 border-2 border-gray-300 rounded-xl text-center hover:border-green-500 transition-colors">
+                                <div class="text-green-500 text-lg">🟢</div>
+                                <div class="text-xs font-medium">Baixa</div>
+                            </button>
+                            <button type="button" onclick="setPriority('medium')" class="priority-btn p-3 border-2 border-gray-300 rounded-xl text-center hover:border-yellow-500 transition-colors">
+                                <div class="text-yellow-500 text-lg">🟡</div>
+                                <div class="text-xs font-medium">Média</div>
+                            </button>
+                            <button type="button" onclick="setPriority('high')" class="priority-btn p-3 border-2 border-gray-300 rounded-xl text-center hover:border-red-500 transition-colors">
+                                <div class="text-red-500 text-lg">🔴</div>
+                                <div class="text-xs font-medium">Alta</div>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Título -->
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2" id="title-label">Título</label>
+                        <input type="text" id="feedback-title" placeholder="Descreva brevemente..." class="w-full p-3 border border-gray-300 rounded-xl focus:border-pink-500 focus:outline-none">
+                    </div>
+                    
+                    <!-- Descrição -->
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2" id="description-label">Descrição</label>
+                        <textarea id="feedback-description" placeholder="Conte-nos mais detalhes..." class="w-full p-3 border border-gray-300 rounded-xl focus:border-pink-500 focus:outline-none h-32 resize-none"></textarea>
+                    </div>
+                    
+                    <!-- Passos para Reproduzir (para bugs) -->
+                    <div id="steps-section" class="hidden">
+                        <label class="block text-gray-700 font-semibold mb-2">Como reproduzir o problema?</label>
+                        <textarea id="reproduction-steps" placeholder="1. Abri o app&#10;2. Cliquei em...&#10;3. O erro aconteceu..." class="w-full p-3 border border-gray-300 rounded-xl focus:border-pink-500 focus:outline-none h-24 resize-none"></textarea>
+                    </div>
+                    
+                    <!-- Informações do Dispositivo (para bugs) -->
+                    <div id="device-section" class="hidden">
+                        <label class="block text-gray-700 font-semibold mb-2">Informações do Dispositivo (opcional)</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <input type="text" id="device-model" placeholder="Modelo do celular" class="p-3 border border-gray-300 rounded-xl focus:border-pink-500 focus:outline-none text-sm">
+                            <input type="text" id="device-os" placeholder="Sistema (iOS/Android)" class="p-3 border border-gray-300 rounded-xl focus:border-pink-500 focus:outline-none text-sm">
+                        </div>
+                    </div>
+                    
+                    <!-- Contato (opcional) -->
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">E-mail para resposta (opcional)</label>
+                        <input type="email" id="feedback-email" placeholder="seu@email.com" class="w-full p-3 border border-gray-300 rounded-xl focus:border-pink-500 focus:outline-none">
+                    </div>
+                    
+                    <!-- Botões -->
+                    <div class="flex space-x-3 pt-4">
+                        <button type="button" onclick="closeFeedbackModal()" class="flex-1 bg-gray-200 text-gray-700 py-3 rounded-xl font-semibold hover:bg-gray-300 transition-colors">
+                            Cancelar
+                        </button>
+                        <button type="submit" onclick="submitFeedback(event)" class="flex-1 bg-gradient-to-r from-pink-500 to-purple-600 text-white py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all">
+                            Enviar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tela de Planos -->
+    <div id="plans-screen" class="screen hidden max-w-md mx-auto bg-white min-h-screen shadow-xl">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-pink-500 to-purple-600 text-white p-4 flex items-center">
+            <button onclick="showScreen('home-screen')" class="mr-4 text-white text-xl">←</button>
+            <h1 class="text-xl font-bold">Planos e Preços</h1>
+        </div>
+
+        <!-- Conteúdo dos Planos -->
+        <div class="p-6 pb-24">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Escolha seu plano ideal</h2>
+                <p class="text-gray-600">Gerencie sua agenda de beleza com eficiência</p>
+            </div>
+
+            <!-- Toggle Mensal/Anual -->
+            <div class="flex items-center justify-center mb-8">
+                <div class="bg-gray-100 p-1 rounded-xl flex">
+                    <button onclick="togglePricing('monthly')" id="monthly-btn" class="px-6 py-2 rounded-lg font-semibold text-sm bg-pink-500 text-white transition-all">
+                        Mensal
+                    </button>
+                    <button onclick="togglePricing('yearly')" id="yearly-btn" class="px-6 py-2 rounded-lg font-semibold text-sm text-gray-600 transition-all">
+                        Anual
+                    </button>
+                </div>
+                <div class="ml-3 bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-semibold">
+                    -20% no anual
+                </div>
+            </div>
+
+            <!-- Planos -->
+            <div class="space-y-4">
+                <!-- Plano Básico -->
+                <div class="border-2 border-gray-200 rounded-2xl p-6 hover:border-pink-300 transition-colors">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800">Básico</h3>
+                            <p class="text-gray-600 text-sm">Para profissionais iniciantes</p>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-2xl font-bold text-gray-800">
+                                R$ <span id="basic-price">29</span>
+                            </div>
+                            <div class="text-gray-500 text-sm">/mês</div>
+                        </div>
+                    </div>
+                    
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-green-500 mr-3">✓</span>
+                            Até 50 agendamentos/mês
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-green-500 mr-3">✓</span>
+                            1 profissional
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-green-500 mr-3">✓</span>
+                            Lembretes por WhatsApp
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-green-500 mr-3">✓</span>
+                            Relatórios básicos
+                        </li>
+                    </ul>
+                    
+                    <button onclick="selectPlan('basic')" class="w-full bg-gray-100 text-gray-700 py-3 rounded-xl font-semibold hover:bg-gray-200 transition-colors">
+                        Escolher Básico
+                    </button>
+                </div>
+
+                <!-- Plano Profissional (Destaque) -->
+                <div class="border-2 border-pink-500 rounded-2xl p-6 relative bg-gradient-to-br from-pink-50 to-purple-50">
+                    <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                        <span class="bg-pink-500 text-white px-4 py-1 rounded-full text-xs font-semibold">
+                            MAIS POPULAR
+                        </span>
+                    </div>
+                    
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800">Profissional</h3>
+                            <p class="text-gray-600 text-sm">Para salões em crescimento</p>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-2xl font-bold text-pink-600">
+                                R$ <span id="pro-price">79</span>
+                            </div>
+                            <div class="text-gray-500 text-sm">/mês</div>
+                        </div>
+                    </div>
+                    
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-green-500 mr-3">✓</span>
+                            Agendamentos ilimitados
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-green-500 mr-3">✓</span>
+                            Até 5 profissionais
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-green-500 mr-3">✓</span>
+                            Lembretes WhatsApp + SMS
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-green-500 mr-3">✓</span>
+                            Relatórios avançados
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-green-500 mr-3">✓</span>
+                            Controle financeiro
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-green-500 mr-3">✓</span>
+                            Agenda online para clientes
+                        </li>
+                    </ul>
+                    
+                    <button onclick="selectPlan('professional')" class="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                        Escolher Profissional
+                    </button>
+                </div>
+
+                <!-- Plano Premium -->
+                <div class="border-2 border-gray-200 rounded-2xl p-6 hover:border-purple-300 transition-colors">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800">Premium</h3>
+                            <p class="text-gray-600 text-sm">Para grandes salões</p>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-2xl font-bold text-purple-600">
+                                R$ <span id="premium-price">149</span>
+                            </div>
+                            <div class="text-gray-500 text-sm">/mês</div>
+                        </div>
+                    </div>
+                    
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-green-500 mr-3">✓</span>
+                            Tudo do Profissional
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-green-500 mr-3">✓</span>
+                            Profissionais ilimitados
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-green-500 mr-3">✓</span>
+                            Multi-unidades
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-green-500 mr-3">✓</span>
+                            API personalizada
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-green-500 mr-3">✓</span>
+                            Suporte prioritário
+                        </li>
+                        <li class="flex items-center text-sm text-gray-700">
+                            <span class="text-green-500 mr-3">✓</span>
+                            Treinamento personalizado
+                        </li>
+                    </ul>
+                    
+                    <button onclick="selectPlan('premium')" class="w-full bg-gradient-to-r from-purple-500 to-indigo-600 text-white py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                        Escolher Premium
+                    </button>
+                </div>
+            </div>
+
+            <!-- Teste Grátis -->
+            <div class="mt-8 text-center bg-gradient-to-r from-green-100 to-emerald-100 p-6 rounded-2xl">
+                <h3 class="text-lg font-bold text-gray-800 mb-2">🎉 Teste Grátis por 14 dias</h3>
+                <p class="text-gray-600 text-sm mb-4">Experimente todos os recursos sem compromisso</p>
+                <button onclick="startTrial()" class="bg-green-500 text-white px-8 py-3 rounded-xl font-semibold hover:bg-green-600 transition-colors">
+                    Começar Teste Grátis
+                </button>
+            </div>
+
+            <!-- FAQ Rápido -->
+            <div class="mt-8">
+                <h3 class="text-lg font-bold text-gray-800 mb-4">Perguntas Frequentes</h3>
+                <div class="space-y-3">
+                    <details class="bg-gray-50 p-4 rounded-xl">
+                        <summary class="font-semibold text-gray-800 cursor-pointer">Posso cancelar a qualquer momento?</summary>
+                        <p class="text-gray-600 text-sm mt-2">Sim, você pode cancelar seu plano a qualquer momento sem taxas adicionais.</p>
+                    </details>
+                    <details class="bg-gray-50 p-4 rounded-xl">
+                        <summary class="font-semibold text-gray-800 cursor-pointer">Como funciona o teste grátis?</summary>
+                        <p class="text-gray-600 text-sm mt-2">14 dias completos com acesso a todos os recursos do plano Profissional.</p>
+                    </details>
+                    <details class="bg-gray-50 p-4 rounded-xl">
+                        <summary class="font-semibold text-gray-800 cursor-pointer">Posso mudar de plano depois?</summary>
+                        <p class="text-gray-600 text-sm mt-2">Sim, você pode fazer upgrade ou downgrade do seu plano a qualquer momento.</p>
+                    </details>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu Rodapé -->
+        <div class="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md bg-white border-t border-gray-200 px-6 py-3">
+            <div class="flex justify-around">
+                <button onclick="showScreen('home-screen')" class="flex flex-col items-center space-y-1 text-gray-400 hover:text-pink-500 transition-colors">
+                    <span class="text-xl">🏠</span>
+                    <span class="text-xs font-medium">Home</span>
+                </button>
+                <button onclick="showScreen('agenda-screen')" class="flex flex-col items-center space-y-1 text-gray-400 hover:text-pink-500 transition-colors">
+                    <span class="text-xl">📅</span>
+                    <span class="text-xs font-medium">Agenda</span>
+                </button>
+                <button onclick="showScreen('plans-screen')" class="flex flex-col items-center space-y-1 text-pink-500">
+                    <span class="text-xl">👤</span>
+                    <span class="text-xs font-medium">Perfil</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showScreen(screenId) {
+            // Esconder todas as telas
+            const screens = document.querySelectorAll('.screen');
+            screens.forEach(screen => {
+                screen.classList.add('hidden');
+            });
+            
+            // Mostrar a tela selecionada
+            document.getElementById(screenId).classList.remove('hidden');
+        }
+
+        function saveAppointment() {
+            // Simular salvamento
+            alert('✅ Agendamento salvo com sucesso!');
+            showScreen('home-screen');
+        }
+
+        function login() {
+            // Simular login
+            alert('✅ Login realizado com sucesso!');
+            showScreen('home-screen');
+        }
+
+        function register() {
+            // Simular cadastro
+            alert('✅ Conta criada com sucesso!');
+            showScreen('home-screen');
+        }
+
+        function togglePricing(period) {
+            const monthlyBtn = document.getElementById('monthly-btn');
+            const yearlyBtn = document.getElementById('yearly-btn');
+            const basicPrice = document.getElementById('basic-price');
+            const proPrice = document.getElementById('pro-price');
+            const premiumPrice = document.getElementById('premium-price');
+
+            if (period === 'monthly') {
+                monthlyBtn.className = 'px-6 py-2 rounded-lg font-semibold text-sm bg-pink-500 text-white transition-all';
+                yearlyBtn.className = 'px-6 py-2 rounded-lg font-semibold text-sm text-gray-600 transition-all';
+                basicPrice.textContent = '29';
+                proPrice.textContent = '79';
+                premiumPrice.textContent = '149';
+            } else {
+                monthlyBtn.className = 'px-6 py-2 rounded-lg font-semibold text-sm text-gray-600 transition-all';
+                yearlyBtn.className = 'px-6 py-2 rounded-lg font-semibold text-sm bg-pink-500 text-white transition-all';
+                basicPrice.textContent = '23';
+                proPrice.textContent = '63';
+                premiumPrice.textContent = '119';
+            }
+        }
+
+        function selectPlan(plan) {
+            alert(`✅ Plano ${plan} selecionado! Redirecionando para pagamento...`);
+            showScreen('home-screen');
+        }
+
+        function startTrial() {
+            alert('🎉 Teste grátis iniciado! Você tem 14 dias para explorar todos os recursos.');
+            showScreen('home-screen');
+        }
+
+        // Funções de Notificações
+        function filterNotifications(type) {
+            // Reset all filter buttons
+            const filterButtons = ['filter-all', 'filter-appointments', 'filter-reminders', 'filter-system'];
+            filterButtons.forEach(id => {
+                const btn = document.getElementById(id);
+                btn.className = 'px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-300 transition-colors';
+            });
+
+            // Activate selected filter
+            const activeBtn = document.getElementById(`filter-${type}`);
+            activeBtn.className = 'px-4 py-2 bg-pink-500 text-white rounded-lg text-sm font-medium transition-colors';
+
+            // Show/hide notifications based on filter
+            const notifications = document.querySelectorAll('.notification-item');
+            notifications.forEach(notification => {
+                if (type === 'all') {
+                    notification.style.display = 'block';
+                } else {
+                    if (notification.classList.contains(type)) {
+                        notification.style.display = 'block';
+                    } else {
+                        notification.style.display = 'none';
+                    }
+                }
+            });
+        }
+
+        function markAsRead(element) {
+            const notification = element.closest('.notification-item');
+            const dot = notification.querySelector('.w-3.h-3');
+            if (dot) {
+                dot.style.display = 'none';
+            }
+            notification.style.opacity = '0.7';
+            element.textContent = 'Lida';
+            element.disabled = true;
+            element.className = 'text-gray-400 text-xs cursor-not-allowed';
+        }
+
+        function markAllAsRead() {
+            const notifications = document.querySelectorAll('.notification-item');
+            notifications.forEach(notification => {
+                const dot = notification.querySelector('.w-3.h-3');
+                if (dot) {
+                    dot.style.display = 'none';
+                }
+                notification.style.opacity = '0.7';
+                const readBtn = notification.querySelector('button[onclick*="markAsRead"]');
+                if (readBtn) {
+                    readBtn.textContent = 'Lida';
+                    readBtn.disabled = true;
+                    readBtn.className = 'text-gray-400 text-xs cursor-not-allowed';
+                }
+            });
+            alert('✅ Todas as notificações foram marcadas como lidas!');
+        }
+
+        function viewAppointment(id) {
+            alert(`📅 Visualizando detalhes do agendamento ${id}`);
+            showScreen('agenda-screen');
+        }
+
+        function sendReminder(id) {
+            alert(`📱 Lembrete enviado para o cliente do agendamento ${id}!`);
+        }
+
+        function reschedule(id) {
+            alert(`📅 Reagendando o compromisso ${id}...`);
+            showScreen('add-screen');
+        }
+
+        function viewUpdate() {
+            alert('🔄 Visualizando novidades da atualização...');
+        }
+
+        function viewInvoice() {
+            alert('💳 Abrindo fatura para visualização...');
+        }
+
+        function viewReview() {
+            alert('⭐ Visualizando avaliação do cliente...');
+        }
+
+        function viewReport() {
+            alert('📊 Abrindo relatório semanal...');
+        }
+
+        // Funções de Feedback
+        let currentRating = 0;
+        let selectedPriority = '';
+
+        function setRating(rating) {
+            currentRating = rating;
+            const stars = document.querySelectorAll('.star');
+            const ratingText = document.getElementById('rating-text');
+            const submitBtn = document.getElementById('submit-rating');
+            
+            // Update stars
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.className = 'star text-3xl text-yellow-400 transition-colors';
+                } else {
+                    star.className = 'star text-3xl text-gray-300 hover:text-yellow-400 transition-colors';
+                }
+            });
+            
+            // Update text
+            const ratingTexts = {
+                1: 'Muito ruim 😞',
+                2: 'Ruim 😕',
+                3: 'Regular 😐',
+                4: 'Bom 😊',
+                5: 'Excelente! 🤩'
+            };
+            ratingText.textContent = ratingTexts[rating];
+            
+            // Enable submit button
+            submitBtn.disabled = false;
+            submitBtn.className = 'w-full bg-yellow-500 text-white py-3 rounded-xl font-semibold hover:bg-yellow-600 transition-colors';
+        }
+
+        function submitRating() {
+            if (currentRating === 0) return;
+            
+            alert(`⭐ Obrigado pela sua avaliação de ${currentRating} estrelas! Seu feedback é muito importante para nós.`);
+            
+            // Add to feedback history
+            addToFeedbackHistory('Avaliação do app', `⭐`.repeat(currentRating) + ' ' + document.getElementById('rating-text').textContent, 'Respondido');
+            
+            // Reset rating
+            currentRating = 0;
+            document.querySelectorAll('.star').forEach(star => {
+                star.className = 'star text-3xl text-gray-300 hover:text-yellow-400 transition-colors';
+            });
+            document.getElementById('rating-text').textContent = 'Toque nas estrelas para avaliar';
+            document.getElementById('submit-rating').disabled = true;
+            document.getElementById('submit-rating').className = 'w-full bg-yellow-500 text-white py-3 rounded-xl font-semibold opacity-50 cursor-not-allowed';
+        }
+
+        function showFeedbackForm(type) {
+            const modal = document.getElementById('feedback-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const feedbackType = document.getElementById('feedback-type');
+            const titleLabel = document.getElementById('title-label');
+            const descriptionLabel = document.getElementById('description-label');
+            
+            // Reset form
+            document.getElementById('feedback-form').reset();
+            selectedPriority = '';
+            document.querySelectorAll('.priority-btn').forEach(btn => {
+                btn.className = 'priority-btn p-3 border-2 border-gray-300 rounded-xl text-center hover:border-gray-400 transition-colors';
+            });
+            
+            // Hide all conditional sections
+            document.getElementById('category-section').classList.add('hidden');
+            document.getElementById('priority-section').classList.add('hidden');
+            document.getElementById('steps-section').classList.add('hidden');
+            document.getElementById('device-section').classList.add('hidden');
+            
+            feedbackType.value = type;
+            
+            if (type === 'bug') {
+                modalTitle.textContent = '🐛 Reportar Problema';
+                titleLabel.textContent = 'Qual é o problema?';
+                descriptionLabel.textContent = 'Descreva o que aconteceu';
+                document.getElementById('category-section').classList.remove('hidden');
+                document.getElementById('priority-section').classList.remove('hidden');
+                document.getElementById('steps-section').classList.remove('hidden');
+                document.getElementById('device-section').classList.remove('hidden');
+            } else if (type === 'suggestion') {
+                modalTitle.textContent = '💡 Sugerir Melhoria';
+                titleLabel.textContent = 'Qual sua sugestão?';
+                descriptionLabel.textContent = 'Descreva sua ideia em detalhes';
+            } else if (type === 'compliment') {
+                modalTitle.textContent = '👏 Enviar Elogio';
+                titleLabel.textContent = 'O que você gostou?';
+                descriptionLabel.textContent = 'Conte-nos o que foi especial';
+            }
+            
+            modal.classList.remove('hidden');
+        }
+
+        function closeFeedbackModal() {
+            document.getElementById('feedback-modal').classList.add('hidden');
+        }
+
+        function setPriority(priority) {
+            selectedPriority = priority;
+            
+            // Reset all buttons
+            document.querySelectorAll('.priority-btn').forEach(btn => {
+                btn.className = 'priority-btn p-3 border-2 border-gray-300 rounded-xl text-center hover:border-gray-400 transition-colors';
+            });
+            
+            // Highlight selected
+            const colors = {
+                'low': 'border-green-500 bg-green-50',
+                'medium': 'border-yellow-500 bg-yellow-50',
+                'high': 'border-red-500 bg-red-50'
+            };
+            
+            event.target.closest('.priority-btn').className = `priority-btn p-3 border-2 ${colors[priority]} rounded-xl text-center transition-colors`;
+        }
+
+        function submitFeedback(event) {
+            event.preventDefault();
+            
+            const type = document.getElementById('feedback-type').value;
+            const title = document.getElementById('feedback-title').value;
+            const description = document.getElementById('feedback-description').value;
+            
+            if (!title.trim() || !description.trim()) {
+                alert('⚠️ Por favor, preencha o título e a descrição.');
+                return;
+            }
+            
+            // Simulate submission
+            const typeNames = {
+                'bug': 'Problema reportado',
+                'suggestion': 'Sugestão enviada',
+                'compliment': 'Elogio enviado'
+            };
+            
+            alert(`✅ ${typeNames[type]} com sucesso! Nossa equipe analisará seu feedback em breve.`);
+            
+            // Add to feedback history
+            addToFeedbackHistory(typeNames[type], title, 'Em análise');
+            
+            closeFeedbackModal();
+        }
+
+        function addToFeedbackHistory(type, content, status) {
+            const historyContainer = document.getElementById('feedback-history');
+            const statusColors = {
+                'Em análise': 'text-orange-600 bg-orange-100',
+                'Respondido': 'text-blue-600 bg-blue-100',
+                'Implementado': 'text-green-600 bg-green-100'
+            };
+            
+            const newFeedback = document.createElement('div');
+            newFeedback.className = 'bg-white p-3 rounded-lg border border-purple-100';
+            newFeedback.innerHTML = `
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm font-medium text-gray-800">${type}</span>
+                    <span class="text-xs ${statusColors[status]} px-2 py-1 rounded-full">${status}</span>
+                </div>
+                <p class="text-xs text-gray-600">${content}</p>
+                <span class="text-xs text-gray-400">agora</span>
+            `;
+            
+            historyContainer.insertBefore(newFeedback, historyContainer.firstChild);
+        }
+
+        function openWhatsApp() {
+            const message = encodeURIComponent('Olá! Preciso de ajuda com o BeautyAgenda.');
+            window.open(`https://wa.me/5511999999999?text=${message}`, '_blank', 'noopener,noreferrer');
+        }
+
+        function sendEmail() {
+            const subject = encodeURIComponent('Suporte BeautyAgenda');
+            const body = encodeURIComponent('Olá,\n\nPreciso de ajuda com:\n\n[Descreva seu problema aqui]\n\nObrigado!');
+            window.open(`mailto:suporte@beautyagenda.com?subject=${subject}&body=${body}`, '_blank', 'noopener,noreferrer');
+        }
+
+        function viewAllFeedbacks() {
+            alert('📋 Visualizando histórico completo de feedbacks...');
+        }
+
+        // Inicializar na tela de login
+        document.addEventListener('DOMContentLoaded', function() {
+            showScreen('login-screen');
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98436e76d017e2b0',t:'MTc1ODcyODk2My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
