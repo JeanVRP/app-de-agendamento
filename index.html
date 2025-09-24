@@ -29,12 +29,12 @@
     <!-- Tela de Login -->
     <div id="login-screen" class="screen max-w-md mx-auto bg-white min-h-screen shadow-xl">
         <!-- Header com Logo -->
-        <div class="bg-gradient-to-br from-pink-500 via-purple-600 to-indigo-600 text-white p-8 text-center">
+        <div class="bg-gradient-to-br from-slate-700 via-gray-800 to-slate-900 text-white p-8 text-center">
             <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <span class="text-4xl">✨</span>
             </div>
             <h1 class="text-3xl font-bold mb-2">BeautyAgenda</h1>
-            <p class="text-pink-100 text-sm">Organize sua agenda de beleza</p>
+            <p class="text-slate-100 text-sm">Organize sua agenda de beleza</p>
         </div>
 
         <!-- Formulário de Login -->
@@ -47,23 +47,23 @@
             <form class="space-y-6">
                 <div>
                     <label class="block text-gray-700 font-semibold mb-2">E-mail</label>
-                    <input type="email" placeholder="seu@email.com" class="w-full p-4 border border-gray-300 rounded-xl focus:border-pink-500 focus:outline-none transition-colors bg-gray-50">
+                    <input type="email" placeholder="seu@email.com" class="w-full p-4 border border-gray-300 rounded-xl focus:border-slate-500 focus:outline-none transition-colors bg-gray-50">
                 </div>
 
                 <div>
                     <label class="block text-gray-700 font-semibold mb-2">Senha</label>
-                    <input type="password" placeholder="••••••••" class="w-full p-4 border border-gray-300 rounded-xl focus:border-pink-500 focus:outline-none transition-colors bg-gray-50">
+                    <input type="password" placeholder="••••••••" class="w-full p-4 border border-gray-300 rounded-xl focus:border-slate-500 focus:outline-none transition-colors bg-gray-50">
                 </div>
 
                 <div class="flex items-center justify-between">
                     <label class="flex items-center">
-                        <input type="checkbox" class="w-4 h-4 text-pink-500 border-gray-300 rounded focus:ring-pink-500">
+                        <input type="checkbox" class="w-4 h-4 text-slate-500 border-gray-300 rounded focus:ring-slate-500">
                         <span class="ml-2 text-sm text-gray-600">Lembrar de mim</span>
                     </label>
-                    <a href="#" class="text-sm text-pink-500 hover:text-pink-600">Esqueceu a senha?</a>
+                    <a href="#" class="text-sm text-slate-500 hover:text-slate-600">Esqueceu a senha?</a>
                 </div>
 
-                <button type="button" onclick="login()" class="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105">
+                <button type="button" onclick="login()" class="w-full bg-gradient-to-r from-slate-700 to-gray-800 text-white py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105">
                     Entrar
                 </button>
             </form>
@@ -76,7 +76,7 @@
             </div>
 
             <!-- Botão de Cadastro -->
-            <button onclick="showScreen('register-screen')" class="w-full bg-white border-2 border-pink-500 text-pink-500 py-4 rounded-xl font-semibold text-lg hover:bg-pink-50 transition-all duration-200">
+            <button onclick="showScreen('register-screen')" class="w-full bg-white border-2 border-gray-400 text-gray-600 py-4 rounded-xl font-semibold text-lg hover:bg-gray-50 transition-all duration-200">
                 Criar nova conta
             </button>
 
@@ -84,8 +84,8 @@
             <div class="text-center mt-8 space-y-2">
                 <p class="text-xs text-gray-500">Ao continuar, você concorda com nossos</p>
                 <div class="space-x-4">
-                    <a href="#" class="text-xs text-pink-500 hover:text-pink-600">Termos de Uso</a>
-                    <a href="#" class="text-xs text-pink-500 hover:text-pink-600">Política de Privacidade</a>
+                    <a href="#" class="text-xs text-gray-500 hover:text-gray-600">Termos de Uso</a>
+                    <a href="#" class="text-xs text-gray-500 hover:text-gray-600">Política de Privacidade</a>
                 </div>
             </div>
         </div>
@@ -94,7 +94,7 @@
     <!-- Tela de Cadastro -->
     <div id="register-screen" class="screen hidden max-w-md mx-auto bg-white min-h-screen shadow-xl">
         <!-- Header -->
-        <div class="bg-gradient-to-r from-pink-500 to-purple-600 text-white p-4 flex items-center">
+        <div class="bg-gradient-to-r from-slate-600 to-gray-700 text-white p-4 flex items-center">
             <button onclick="showScreen('login-screen')" class="mr-4 text-white text-xl">←</button>
             <h1 class="text-xl font-bold">Criar Conta</h1>
         </div>
@@ -109,22 +109,22 @@
             <form class="space-y-5">
                 <div>
                     <label class="block text-gray-700 font-semibold mb-2">Nome Completo</label>
-                    <input type="text" placeholder="Seu nome completo" class="w-full p-4 border border-gray-300 rounded-xl focus:border-pink-500 focus:outline-none transition-colors bg-gray-50">
+                    <input type="text" placeholder="Seu nome completo" class="w-full p-4 border border-gray-300 rounded-xl focus:border-slate-500 focus:outline-none transition-colors bg-gray-50">
                 </div>
 
                 <div>
                     <label class="block text-gray-700 font-semibold mb-2">E-mail</label>
-                    <input type="email" placeholder="seu@email.com" class="w-full p-4 border border-gray-300 rounded-xl focus:border-pink-500 focus:outline-none transition-colors bg-gray-50">
+                    <input type="email" placeholder="seu@email.com" class="w-full p-4 border border-gray-300 rounded-xl focus:border-slate-500 focus:outline-none transition-colors bg-gray-50">
                 </div>
 
                 <div>
                     <label class="block text-gray-700 font-semibold mb-2">Telefone</label>
-                    <input type="tel" placeholder="(11) 99999-9999" class="w-full p-4 border border-gray-300 rounded-xl focus:border-pink-500 focus:outline-none transition-colors bg-gray-50">
+                    <input type="tel" placeholder="(11) 99999-9999" class="w-full p-4 border border-gray-300 rounded-xl focus:border-slate-500 focus:outline-none transition-colors bg-gray-50">
                 </div>
 
                 <div>
                     <label class="block text-gray-700 font-semibold mb-2">Tipo de Conta</label>
-                    <select class="w-full p-4 border border-gray-300 rounded-xl focus:border-pink-500 focus:outline-none transition-colors bg-gray-50">
+                    <select class="w-full p-4 border border-gray-300 rounded-xl focus:border-slate-500 focus:outline-none transition-colors bg-gray-50">
                         <option>Selecione o tipo</option>
                         <option>💼 Profissional/Salão</option>
                         <option>👤 Cliente</option>
@@ -133,30 +133,30 @@
 
                 <div>
                     <label class="block text-gray-700 font-semibold mb-2">Senha</label>
-                    <input type="password" placeholder="Mínimo 8 caracteres" class="w-full p-4 border border-gray-300 rounded-xl focus:border-pink-500 focus:outline-none transition-colors bg-gray-50">
+                    <input type="password" placeholder="Mínimo 8 caracteres" class="w-full p-4 border border-gray-300 rounded-xl focus:border-slate-500 focus:outline-none transition-colors bg-gray-50">
                 </div>
 
                 <div>
                     <label class="block text-gray-700 font-semibold mb-2">Confirmar Senha</label>
-                    <input type="password" placeholder="Digite a senha novamente" class="w-full p-4 border border-gray-300 rounded-xl focus:border-pink-500 focus:outline-none transition-colors bg-gray-50">
+                    <input type="password" placeholder="Digite a senha novamente" class="w-full p-4 border border-gray-300 rounded-xl focus:border-slate-500 focus:outline-none transition-colors bg-gray-50">
                 </div>
 
                 <div class="flex items-start space-x-3 pt-2">
                     <input type="checkbox" class="w-4 h-4 text-pink-500 border-gray-300 rounded focus:ring-pink-500 mt-1">
                     <label class="text-sm text-gray-600">
-                        Eu concordo com os <a href="#" class="text-pink-500 hover:text-pink-600">Termos de Uso</a> e 
-                        <a href="#" class="text-pink-500 hover:text-pink-600">Política de Privacidade</a>
+                        Eu concordo com os <a href="#" class="text-gray-600 hover:text-gray-700 underline">Termos de Uso</a> e 
+                        <a href="#" class="text-gray-600 hover:text-gray-700 underline">Política de Privacidade</a>
                     </label>
                 </div>
 
-                <button type="button" onclick="register()" class="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105 mt-6">
+                <button type="button" onclick="register()" class="w-full bg-gradient-to-r from-slate-700 to-gray-800 text-white py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105 mt-6">
                     Criar Conta
                 </button>
             </form>
 
             <div class="text-center mt-6">
                 <p class="text-gray-600">Já tem uma conta?</p>
-                <button onclick="showScreen('login-screen')" class="text-pink-500 hover:text-pink-600 font-semibold">
+                <button onclick="showScreen('login-screen')" class="text-gray-600 hover:text-gray-700 font-semibold underline">
                     Fazer login
                 </button>
             </div>
@@ -166,10 +166,10 @@
     <!-- Tela Inicial (Home) -->
     <div id="home-screen" class="screen hidden max-w-md mx-auto bg-white min-h-screen shadow-xl">
         <!-- Header -->
-        <div class="bg-gradient-to-r from-pink-500 to-purple-600 text-white p-4 flex justify-between items-center">
+        <div class="bg-gradient-to-r from-slate-700 to-gray-800 text-white p-4 flex justify-between items-center">
             <div class="flex items-center space-x-2">
                 <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center">
-                    <span class="text-pink-500 text-lg">✨</span>
+                    <span class="text-gray-700 text-lg">✨</span>
                 </div>
                 <h1 class="text-xl font-bold">BeautyAgenda</h1>
             </div>
@@ -185,42 +185,42 @@
             
             <!-- Agendamentos do Dia -->
             <div class="space-y-4 mb-8">
-                <div class="appointment-card bg-gradient-to-r from-pink-100 to-purple-100 p-4 rounded-xl border-l-4 border-pink-500">
+                <div class="appointment-card bg-gradient-to-r from-gray-50 to-slate-100 p-4 rounded-xl border-l-4 border-gray-500">
                     <div class="flex justify-between items-start">
                         <div>
                             <div class="font-semibold text-gray-800">09:00 - Maria Silva</div>
                             <div class="text-gray-600 text-sm">Corte de cabelo</div>
-                            <div class="text-pink-600 text-xs mt-1">👩‍💼 Ana (Cabeleireira)</div>
+                            <div class="text-gray-600 text-xs mt-1">👩‍💼 Ana (Cabeleireira)</div>
                         </div>
-                        <div class="text-pink-500 text-sm font-medium">1h</div>
+                        <div class="text-gray-600 text-sm font-medium">1h</div>
                     </div>
                 </div>
 
-                <div class="appointment-card bg-gradient-to-r from-blue-100 to-indigo-100 p-4 rounded-xl border-l-4 border-blue-500">
+                <div class="appointment-card bg-gradient-to-r from-slate-50 to-gray-100 p-4 rounded-xl border-l-4 border-slate-500">
                     <div class="flex justify-between items-start">
                         <div>
                             <div class="font-semibold text-gray-800">11:30 - João Santos</div>
                             <div class="text-gray-600 text-sm">Corte + Barba</div>
-                            <div class="text-blue-600 text-xs mt-1">👨‍💼 Carlos (Barbeiro)</div>
+                            <div class="text-slate-600 text-xs mt-1">👨‍💼 Carlos (Barbeiro)</div>
                         </div>
-                        <div class="text-blue-500 text-sm font-medium">45min</div>
+                        <div class="text-slate-600 text-sm font-medium">45min</div>
                     </div>
                 </div>
 
-                <div class="appointment-card bg-gradient-to-r from-green-100 to-emerald-100 p-4 rounded-xl border-l-4 border-green-500">
+                <div class="appointment-card bg-gradient-to-r from-gray-100 to-slate-200 p-4 rounded-xl border-l-4 border-gray-600">
                     <div class="flex justify-between items-start">
                         <div>
                             <div class="font-semibold text-gray-800">14:00 - Carla Oliveira</div>
                             <div class="text-gray-600 text-sm">Manicure + Pedicure</div>
-                            <div class="text-green-600 text-xs mt-1">💅 Lucia (Manicure)</div>
+                            <div class="text-gray-600 text-xs mt-1">💅 Lucia (Manicure)</div>
                         </div>
-                        <div class="text-green-500 text-sm font-medium">1h30</div>
+                        <div class="text-gray-600 text-sm font-medium">1h30</div>
                     </div>
                 </div>
             </div>
 
             <!-- Botão Novo Agendamento -->
-            <button onclick="showScreen('add-screen')" class="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105">
+            <button onclick="showScreen('add-screen')" class="w-full bg-gradient-to-r from-slate-700 to-gray-800 text-white py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105">
                 ➕ Novo Agendamento
             </button>
         </div>
@@ -228,19 +228,19 @@
         <!-- Menu Rodapé -->
         <div class="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md bg-white border-t border-gray-200 px-6 py-3">
             <div class="flex justify-around">
-                <button onclick="showScreen('home-screen')" class="flex flex-col items-center space-y-1 text-pink-500">
+                <button onclick="showScreen('home-screen')" class="flex flex-col items-center space-y-1 text-gray-700">
                     <span class="text-xl">🏠</span>
                     <span class="text-xs font-medium">Home</span>
                 </button>
-                <button onclick="showScreen('agenda-screen')" class="flex flex-col items-center space-y-1 text-gray-400 hover:text-pink-500 transition-colors">
+                <button onclick="showScreen('agenda-screen')" class="flex flex-col items-center space-y-1 text-gray-400 hover:text-gray-700 transition-colors">
                     <span class="text-xl">📅</span>
                     <span class="text-xs font-medium">Agenda</span>
                 </button>
-                <button onclick="showScreen('notifications-screen')" class="flex flex-col items-center space-y-1 text-gray-400 hover:text-pink-500 transition-colors">
+                <button onclick="showScreen('notifications-screen')" class="flex flex-col items-center space-y-1 text-gray-400 hover:text-gray-700 transition-colors">
                     <span class="text-xl">🔔</span>
                     <span class="text-xs font-medium">Avisos</span>
                 </button>
-                <button onclick="showScreen('feedback-screen')" class="flex flex-col items-center space-y-1 text-gray-400 hover:text-pink-500 transition-colors">
+                <button onclick="showScreen('feedback-screen')" class="flex flex-col items-center space-y-1 text-gray-400 hover:text-gray-700 transition-colors">
                     <span class="text-xl">💬</span>
                     <span class="text-xs font-medium">Feedback</span>
                 </button>
@@ -251,7 +251,7 @@
     <!-- Tela de Adicionar/Editar Agendamento -->
     <div id="add-screen" class="screen hidden max-w-md mx-auto bg-white min-h-screen shadow-xl">
         <!-- Header -->
-        <div class="bg-gradient-to-r from-pink-500 to-purple-600 text-white p-4 flex items-center">
+        <div class="bg-gradient-to-r from-slate-600 to-gray-700 text-white p-4 flex items-center">
             <button onclick="showScreen('home-screen')" class="mr-4 text-white text-xl">←</button>
             <h1 class="text-xl font-bold">Novo Agendamento</h1>
         </div>
@@ -312,7 +312,7 @@
                     <button type="button" onclick="showScreen('home-screen')" class="flex-1 bg-gray-200 text-gray-700 py-4 rounded-xl font-semibold hover:bg-gray-300 transition-colors">
                         Cancelar
                     </button>
-                    <button type="submit" onclick="saveAppointment()" class="flex-1 bg-gradient-to-r from-pink-500 to-purple-600 text-white py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all">
+                    <button type="submit" onclick="saveAppointment()" class="flex-1 bg-gradient-to-r from-slate-700 to-gray-800 text-white py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all">
                         Salvar
                     </button>
                 </div>
@@ -323,7 +323,7 @@
     <!-- Tela de Lista/Agenda -->
     <div id="agenda-screen" class="screen hidden max-w-md mx-auto bg-white min-h-screen shadow-xl">
         <!-- Header -->
-        <div class="bg-gradient-to-r from-pink-500 to-purple-600 text-white p-4">
+        <div class="bg-gradient-to-r from-slate-700 to-gray-800 text-white p-4">
             <h1 class="text-xl font-bold mb-4">Agenda Completa</h1>
             
             <!-- Filtros -->
@@ -679,7 +679,7 @@
     <!-- Tela de Feedback -->
     <div id="feedback-screen" class="screen hidden max-w-md mx-auto bg-white min-h-screen shadow-xl">
         <!-- Header -->
-        <div class="bg-gradient-to-r from-pink-500 to-purple-600 text-white p-4 flex items-center">
+        <div class="bg-gradient-to-r from-slate-600 to-gray-700 text-white p-4 flex items-center">
             <button onclick="showScreen('home-screen')" class="mr-4 text-white text-xl">←</button>
             <h1 class="text-xl font-bold">Feedback & Suporte</h1>
         </div>
@@ -981,7 +981,7 @@
     <!-- Tela de Planos -->
     <div id="plans-screen" class="screen hidden max-w-md mx-auto bg-white min-h-screen shadow-xl">
         <!-- Header -->
-        <div class="bg-gradient-to-r from-pink-500 to-purple-600 text-white p-4 flex items-center">
+        <div class="bg-gradient-to-r from-slate-600 to-gray-700 text-white p-4 flex items-center">
             <button onclick="showScreen('home-screen')" class="mr-4 text-white text-xl">←</button>
             <h1 class="text-xl font-bold">Planos e Preços</h1>
         </div>
@@ -1516,7 +1516,7 @@
 
         function openWhatsApp() {
             const message = encodeURIComponent('Olá! Preciso de ajuda com o BeautyAgenda.');
-            window.open(`https://wa.me/5511999999999?text=${message}`, '_blank', 'noopener,noreferrer');
+            window.open(`https://wa.me/5534999302676?text=${message}`, '_blank', 'noopener,noreferrer');
         }
 
         function sendEmail() {
@@ -1534,5 +1534,5 @@
             showScreen('login-screen');
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98436e76d017e2b0',t:'MTc1ODcyODk2My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9843c240b50664de',t:'MTc1ODczMjM5NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
