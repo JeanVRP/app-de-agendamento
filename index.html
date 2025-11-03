@@ -435,16 +435,18 @@
         
         .notification {
             position: fixed;
-            top: 60px;
+            top: 100px;
             left: 20px;
             right: 20px;
+            max-width: 388px;
+            margin: 0 auto;
             background: #10b981;
             color: white;
             padding: 16px 20px;
             border-radius: 16px;
             font-weight: 500;
             z-index: 3000;
-            transform: translateY(-100px);
+            transform: translateY(-200px);
             transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             box-shadow: 0 8px 30px rgba(16, 185, 129, 0.3);
         }
@@ -1246,46 +1248,30 @@
     <div style="padding-top: 20px;">
      <h2 class="section-title flex items-center">
       <svg width="24" height="24" viewbox="0 0 24 24" fill="none" class="mr-2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="2" /> <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" /> <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" /> <line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="2" /> <path d="M8 14H10V16H8V14Z" fill="currentColor" /> <path d="M14 14H16V16H14V14Z" fill="currentColor" />
-      </svg> Seus Agendamentos</h2><!-- Próximo -->
-     <div class="card" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 2px solid #16a34a; box-shadow: 0 8px 32px rgba(22, 163, 74, 0.15);">
-      <div class="flex items-center justify-between mb-3">
-       <h3 class="font-bold flex items-center" style="color: #15803d; font-size: 18px;">
-        <svg width="20" height="20" viewbox="0 0 24 24" fill="none" class="mr-2"><path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-        </svg> Próximo agendamento</h3><span class="bg-green-200 text-green-900 px-3 py-1 rounded-full text-xs font-bold">Confirmado</span>
-      </div>
-      <div class="flex items-center justify-between">
-       <div>
-        <p class="font-bold text-lg" style="color: #166534;">Corte + Escova</p>
-        <p class="text-sm casual-text font-medium" style="color: #15803d;">A Ana já tá ansiosa pra ver você!</p>
-        <p class="text-xl font-bold mt-2" style="color: #16a34a;">Amanhã, 14h</p>
+      </svg> Seus Horários</h2><!-- Lista de agendamentos será inserida aqui dinamicamente -->
+     <div id="appointments-list"><!-- Próximo agendamento (se houver) -->
+      <div id="next-appointment-card" class="card" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 2px solid #16a34a; box-shadow: 0 8px 32px rgba(22, 163, 74, 0.15); display: none;">
+       <div class="flex items-center justify-between mb-3">
+        <h3 class="font-bold flex items-center" style="color: #15803d; font-size: 18px;">
+         <svg width="20" height="20" viewbox="0 0 24 24" fill="none" class="mr-2"><path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+         </svg> Próximo agendamento</h3><span class="bg-green-200 text-green-900 px-3 py-1 rounded-full text-xs font-bold">Confirmado</span>
        </div>
-       <div class="flex flex-col space-y-2"><button onclick="rescheduleAppointment()" class="bg-white text-green-800 border-2 border-green-300 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-green-50 transition-all">Remarcar</button> <button onclick="cancelAppointment()" class="text-red-700 text-sm font-medium hover:text-red-800">Cancelar</button>
+       <div class="flex items-center justify-between">
+        <div>
+         <p class="font-bold text-lg" style="color: #166534;" id="next-apt-service">Corte + Escova</p>
+         <p class="text-sm casual-text font-medium" style="color: #15803d;" id="next-apt-professional">A Ana já tá ansiosa pra ver você!</p>
+         <p class="text-xl font-bold mt-2" style="color: #16a34a;" id="next-apt-datetime">Amanhã, 14h</p>
+        </div>
+        <div class="flex flex-col space-y-2"><button onclick="rescheduleAppointment()" class="bg-white text-green-800 border-2 border-green-300 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-green-50 transition-all">Remarcar</button> <button onclick="cancelAppointment()" class="text-red-700 text-sm font-medium hover:text-red-800">Cancelar</button>
+        </div>
        </div>
-      </div>
-     </div><!-- Histórico -->
-     <h3 class="font-bold mb-4 mt-8 text-lg" style="color: var(--text-primary);">Suas últimas visitas</h3>
-     <div class="card">
-      <div class="flex items-center justify-between">
-       <div>
-        <p class="font-bold text-lg" style="color: var(--text-primary);">Coloração</p>
-        <p class="text-sm casual-text font-medium" style="color: var(--text-secondary);">Com a Carla - ficou lindo demais!</p>
-        <p class="text-sm font-medium mt-1" style="color: var(--text-secondary);">15 Jan 2024, 10h</p>
+      </div><!-- Mensagem quando não há agendamentos -->
+      <div id="no-appointments" class="card text-center" style="display: none;">
+       <div style="font-size: 48px; margin-bottom: 16px;">
+        📅
        </div>
-       <div class="text-right"><span class="bg-blue-200 text-blue-900 px-3 py-1 rounded-full text-xs font-bold">Finalizado</span>
-        <p class="text-sm mt-2 font-bold" style="color: var(--text-primary);">R$ 120</p>
-       </div>
-      </div>
-     </div>
-     <div class="card">
-      <div class="flex items-center justify-between">
-       <div>
-        <p class="font-bold text-lg" style="color: var(--text-primary);">Manicure + Pedicure</p>
-        <p class="text-sm casual-text font-medium" style="color: var(--text-secondary);">Júlia caprichou nas suas unhas!</p>
-        <p class="text-sm font-medium mt-1" style="color: var(--text-secondary);">08 Jan 2024, 16h</p>
-       </div>
-       <div class="text-right"><span class="bg-blue-200 text-blue-900 px-3 py-1 rounded-full text-xs font-bold">Finalizado</span>
-        <p class="text-sm mt-2 font-bold" style="color: var(--text-primary);">R$ 45</p>
-       </div>
+       <h3 class="font-bold mb-2" style="color: var(--text-primary);">Nenhum agendamento ainda</h3>
+       <p class="text-sm casual-text mb-4" style="color: var(--text-secondary);">Que tal marcar um horário pra ficar ainda mais linda?</p><button onclick="quickBooking()" class="btn-primary"> Marcar Horário ✨ </button>
       </div>
      </div>
     </div>
@@ -1754,9 +1740,11 @@
      <h3 class="text-xl font-bold" style="color: var(--text-primary);">Vamos marcar? <span class="emoji-large">✨</span></h3><button onclick="closeModal()" class="text-2xl haptic-feedback" style="color: var(--text-secondary);">×</button>
     </div>
     <div class="modal-body">
-     <div class="form-group"><label class="form-label">Qual serviço você quer?</label> <select class="form-select" id="service-select"> <option>Corte de Cabelo - R$ 50</option> <option>Coloração - R$ 120</option> <option>Escova - R$ 35</option> <option>Manicure - R$ 25</option> <option>Pedicure - R$ 30</option> <option>Design de Sobrancelha - R$ 30</option> <option>Progressiva - R$ 180</option> <option>Luzes/Mechas - R$ 150</option> <option>Hidratação - R$ 60</option> <option>Botox Capilar - R$ 100</option> <option>Penteado - R$ 80</option> <option>Limpeza de Pele - R$ 70</option> <option>Maquiagem - R$ 90</option> </select>
+     <div class="form-group"><label class="form-label">Qual serviço você quer?</label> <select class="form-select" id="service-select"> <option>Corte de Cabelo - R$ 50</option> <option>Coloração - R$ 120</option> <option style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); color: #d97706; font-weight: bold;">Corte + Coloração (PROMOÇÃO) - R$ 120</option> <option>Escova - R$ 35</option> <option>Manicure - R$ 25</option> <option>Pedicure - R$ 30</option> <option>Design de Sobrancelha - R$ 30</option> <option>Progressiva - R$ 180</option> <option>Luzes/Mechas - R$ 150</option> <option>Hidratação - R$ 60</option> <option>Botox Capilar - R$ 100</option> <option>Penteado - R$ 80</option> <option>Limpeza de Pele - R$ 70</option> <option>Maquiagem - R$ 90</option> </select>
      </div>
-     <div class="form-group"><label class="form-label">Que dia funciona pra você?</label> <input type="date" class="form-input" id="date-input">
+     <div class="form-group"><label class="form-label">Com qual profissional?</label> <select class="form-select" id="professional-select" onchange="updateAvailableTimeSlots()"> <option value="">Escolha o profissional</option> <option value="ana">Ana - Especialista em cortes e coloração ✨</option> <option value="carla">Carla - Expert em coloração e mechas 🎨</option> <option value="julia">Júlia - Mestre em unhas e design 💅</option> <option value="bruno">Bruno - Profissional em cortes masculinos ✂️</option> <option value="patricia">Patrícia - Especialista em tratamentos capilares 💆‍♀️</option> <option value="rodrigo">Rodrigo - Expert em progressivas e alisamentos 🔥</option> </select>
+     </div>
+     <div class="form-group"><label class="form-label">Que dia funciona pra você?</label> <input type="date" class="form-input" id="date-input" onchange="updateAvailableTimeSlots()">
      </div>
      <div class="form-group"><label class="form-label">Horários disponíveis</label>
       <div class="grid grid-cols-3 gap-2">
@@ -1842,13 +1830,72 @@
   <script>
         let currentScreen = 'login';
         let selectedTime = null;
+        let selectedDate = null;
+        let selectedService = null;
         let currentUser = null;
         let userData = JSON.parse(localStorage.getItem('bellaVistaUsers') || '[]');
+        let appointmentsData = JSON.parse(localStorage.getItem('bellaVistaAppointments') || '[]');
         let isLoggedIn = false;
 
         // Save users to localStorage
         function saveUserData() {
             localStorage.setItem('bellaVistaUsers', JSON.stringify(userData));
+        }
+
+        // Save appointments to localStorage
+        function saveAppointmentsData() {
+            localStorage.setItem('bellaVistaAppointments', JSON.stringify(appointmentsData));
+        }
+
+        // Get user appointments
+        function getUserAppointments(userId) {
+            return appointmentsData.filter(apt => apt.user_id === userId);
+        }
+
+        // Get next appointment
+        function getNextAppointment(userId) {
+            const userAppointments = getUserAppointments(userId);
+            const now = new Date();
+            const futureAppointments = userAppointments.filter(apt => {
+                const aptDate = new Date(apt.date + ' ' + apt.time);
+                return aptDate > now && apt.status === 'confirmed';
+            });
+            
+            if (futureAppointments.length === 0) return null;
+            
+            // Sort by date and return the closest one
+            futureAppointments.sort((a, b) => {
+                const dateA = new Date(a.date + ' ' + a.time);
+                const dateB = new Date(b.date + ' ' + b.time);
+                return dateA - dateB;
+            });
+            
+            return futureAppointments[0];
+        }
+
+        // Check if time slot is available for a specific professional
+        function isTimeSlotAvailable(date, time, professional) {
+            if (!professional) return false;
+            
+            return !appointmentsData.some(apt => 
+                apt.date === date && 
+                apt.time === time && 
+                apt.professional === professional &&
+                apt.status === 'confirmed'
+            );
+        }
+
+        // Get professional name
+        function getProfessionalName(professionalId) {
+            const professionals = {
+                'ana': 'Ana',
+                'carla': 'Carla', 
+                'julia': 'Júlia',
+                'bruno': 'Bruno',
+                'patricia': 'Patrícia',
+                'rodrigo': 'Rodrigo'
+            };
+            return professionals[professionalId] || professionalId;
         }
 
         // Auth Functions
@@ -1948,6 +1995,208 @@
             applyFontSize(fontSize);
             updateFontSizeDisplay(fontSize);
             updateFontSizeButtons(fontSize);
+
+            // Update appointments display
+            updateAppointmentsDisplay();
+        }
+
+        function updateAppointmentsDisplay() {
+            if (!currentUser) return;
+
+            // Update next appointment on home screen
+            const nextAppointment = getNextAppointment(currentUser.user_id);
+            const appointmentCard = document.querySelector('.appointment-card');
+            
+            if (nextAppointment) {
+                const appointmentDate = new Date(nextAppointment.date + ' ' + nextAppointment.time);
+                const today = new Date();
+                const tomorrow = new Date(today);
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                
+                let dateText = '';
+                if (appointmentDate.toDateString() === today.toDateString()) {
+                    dateText = 'Hoje';
+                } else if (appointmentDate.toDateString() === tomorrow.toDateString()) {
+                    dateText = 'Amanhã';
+                } else {
+                    dateText = appointmentDate.toLocaleDateString('pt-BR', { 
+                        day: '2-digit', 
+                        month: 'short' 
+                    });
+                }
+                
+                const timeText = nextAppointment.time.substring(0, 5);
+                const professionalName = nextAppointment.professional_name || 'nossa equipe';
+                
+                appointmentCard.querySelector('.font-semibold').textContent = nextAppointment.service;
+                appointmentCard.querySelector('.text-sm.casual-text').textContent = `${professionalName} tá esperando você!`;
+                appointmentCard.querySelector('.text-lg.font-bold.text-pink-600').textContent = `${dateText}, ${timeText}`;
+                appointmentCard.style.display = 'block';
+            } else {
+                appointmentCard.style.display = 'none';
+            }
+
+            // Update appointments list in the Horários screen
+            updateAppointmentsList();
+        }
+
+        function updateAppointmentsList() {
+            if (!currentUser) return;
+
+            const userAppointments = getUserAppointments(currentUser.user_id);
+            const appointmentsList = document.getElementById('appointments-list');
+            const nextAppointmentCard = document.getElementById('next-appointment-card');
+            const noAppointmentsCard = document.getElementById('no-appointments');
+            
+            // Clear existing dynamic content
+            const existingCards = appointmentsList.querySelectorAll('.card:not(#next-appointment-card):not(#no-appointments)');
+            existingCards.forEach(card => card.remove());
+            
+            const existingTitles = appointmentsList.querySelectorAll('h3:not(.font-bold.flex.items-center)');
+            existingTitles.forEach(title => title.remove());
+            
+            // Get appointments
+            const now = new Date();
+            const futureAppointments = userAppointments.filter(apt => {
+                const aptDate = new Date(apt.date + ' ' + apt.time);
+                return aptDate > now && apt.status === 'confirmed';
+            });
+            
+            const pastAppointments = userAppointments.filter(apt => {
+                const aptDate = new Date(apt.date + ' ' + apt.time);
+                return aptDate <= now || apt.status === 'completed';
+            });
+
+            // Sort appointments
+            futureAppointments.sort((a, b) => {
+                const dateA = new Date(a.date + ' ' + a.time);
+                const dateB = new Date(b.date + ' ' + b.time);
+                return dateA - dateB;
+            });
+
+            pastAppointments.sort((a, b) => {
+                const dateA = new Date(a.date + ' ' + a.time);
+                const dateB = new Date(b.date + ' ' + b.time);
+                return dateB - dateA; // Most recent first
+            });
+
+            // Show/hide cards based on appointments
+            if (futureAppointments.length === 0 && pastAppointments.length === 0) {
+                // No appointments at all
+                nextAppointmentCard.style.display = 'none';
+                noAppointmentsCard.style.display = 'block';
+                return;
+            } else {
+                noAppointmentsCard.style.display = 'none';
+            }
+
+            // Show next appointment
+            if (futureAppointments.length > 0) {
+                const nextApt = futureAppointments[0];
+                const appointmentDate = new Date(nextApt.date + ' ' + nextApt.time);
+                const today = new Date();
+                const tomorrow = new Date(today);
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                
+                let dateText = '';
+                if (appointmentDate.toDateString() === today.toDateString()) {
+                    dateText = 'Hoje';
+                } else if (appointmentDate.toDateString() === tomorrow.toDateString()) {
+                    dateText = 'Amanhã';
+                } else {
+                    dateText = appointmentDate.toLocaleDateString('pt-BR', { 
+                        day: '2-digit', 
+                        month: 'short' 
+                    });
+                }
+                
+                const timeText = nextApt.time.substring(0, 5);
+                const professionalName = nextApt.professional_name || 'nossa equipe';
+                
+                document.getElementById('next-apt-service').textContent = nextApt.service;
+                document.getElementById('next-apt-professional').textContent = `${professionalName} já tá ansiosa pra ver você!`;
+                document.getElementById('next-apt-datetime').textContent = `${dateText}, ${timeText}`;
+                nextAppointmentCard.style.display = 'block';
+            } else {
+                nextAppointmentCard.style.display = 'none';
+            }
+
+            // Add other future appointments
+            if (futureAppointments.length > 1) {
+                const futureTitle = document.createElement('h3');
+                futureTitle.className = 'font-bold mb-4 mt-8 text-lg';
+                futureTitle.style.color = 'var(--text-primary)';
+                futureTitle.textContent = 'Outros agendamentos';
+                appointmentsList.appendChild(futureTitle);
+
+                futureAppointments.slice(1).forEach(apt => {
+                    const card = createAppointmentCard(apt, 'future');
+                    appointmentsList.appendChild(card);
+                });
+            }
+
+            // Add past appointments
+            if (pastAppointments.length > 0) {
+                const pastTitle = document.createElement('h3');
+                pastTitle.className = 'font-bold mb-4 mt-8 text-lg';
+                pastTitle.style.color = 'var(--text-primary)';
+                pastTitle.textContent = 'Suas últimas visitas';
+                appointmentsList.appendChild(pastTitle);
+
+                pastAppointments.slice(0, 5).forEach(apt => {
+                    const card = createAppointmentCard(apt, 'past');
+                    appointmentsList.appendChild(card);
+                });
+            }
+        }
+
+        function createAppointmentCard(appointment, type) {
+            const card = document.createElement('div');
+            card.className = 'card';
+            
+            const appointmentDate = new Date(appointment.date + ' ' + appointment.time);
+            const dateText = appointmentDate.toLocaleDateString('pt-BR', { 
+                day: '2-digit', 
+                month: 'short',
+                year: 'numeric'
+            });
+            const timeText = appointment.time.substring(0, 5);
+            const professionalName = appointment.professional_name || 'nossa equipe';
+            
+            if (type === 'future') {
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="font-bold text-lg" style="color: var(--text-primary);">${appointment.service}</p>
+                            <p class="text-sm casual-text font-medium" style="color: var(--text-secondary);">Com ${professionalName} - vai ficar lindo!</p>
+                            <p class="text-sm font-medium mt-1" style="color: var(--text-secondary);">${dateText}, ${timeText}</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="bg-green-200 text-green-900 px-3 py-1 rounded-full text-xs font-bold">Confirmado</span>
+                            <div class="flex flex-col space-y-2 mt-2">
+                                <button onclick="rescheduleAppointment('${appointment.id}')" class="bg-white text-green-800 border-2 border-green-300 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-green-50 transition-all">Remarcar</button>
+                                <button onclick="cancelAppointment('${appointment.id}')" class="text-red-700 text-sm font-medium hover:text-red-800">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="font-bold text-lg" style="color: var(--text-primary);">${appointment.service}</p>
+                            <p class="text-sm casual-text font-medium" style="color: var(--text-secondary);">Com ${professionalName} - ficou lindo demais!</p>
+                            <p class="text-sm font-medium mt-1" style="color: var(--text-secondary);">${dateText}, ${timeText}</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="bg-blue-200 text-blue-900 px-3 py-1 rounded-full text-xs font-bold">Finalizado</span>
+                            <p class="text-sm mt-2 font-bold" style="color: var(--text-primary);">R$ ${appointment.price}</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            return card;
         }
 
         function logout() {
@@ -2165,11 +2414,51 @@
             const tomorrow = new Date();
             tomorrow.setDate(tomorrow.getDate() + 1);
             document.getElementById('date-input').value = tomorrow.toISOString().split('T')[0];
+            selectedDate = tomorrow.toISOString().split('T')[0];
+            updateAvailableTimeSlots();
         }
 
         function selectService(serviceId) {
+            selectedService = serviceId;
             showNotification(`Ótima escolha! Agora é só escolher o dia e horário 😊`, 'success');
             quickBooking();
+        }
+
+        function updateAvailableTimeSlots() {
+            const dateInput = document.getElementById('date-input');
+            const professionalSelect = document.getElementById('professional-select');
+            const selectedDate = dateInput.value;
+            const selectedProfessional = professionalSelect.value;
+            
+            if (!selectedDate || !selectedProfessional) {
+                // Disable all time slots if date or professional not selected
+                const timeSlots = document.querySelectorAll('.time-slot');
+                timeSlots.forEach(slot => {
+                    slot.classList.add('unavailable');
+                    slot.classList.remove('selected');
+                    slot.onclick = null;
+                });
+                return;
+            }
+
+            const timeSlots = document.querySelectorAll('.time-slot');
+            const availableTimes = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00'];
+            
+            timeSlots.forEach((slot, index) => {
+                const time = availableTimes[index];
+                const isAvailable = isTimeSlotAvailable(selectedDate, time, selectedProfessional);
+                
+                slot.classList.remove('unavailable', 'selected');
+                slot.onclick = null;
+                
+                if (isAvailable) {
+                    slot.classList.remove('unavailable');
+                    slot.onclick = function() { selectTime(this, time); };
+                } else {
+                    slot.classList.add('unavailable');
+                    slot.onclick = null;
+                }
+            });
         }
 
         function selectTime(element, time) {
@@ -2186,10 +2475,52 @@
                 showNotification('Escolhe um horário aí, linda! 😉', 'warning');
                 return;
             }
+
+            if (!currentUser) {
+                showNotification('Ops! Você precisa estar logado para agendar!', 'error');
+                return;
+            }
+
+            const serviceSelect = document.getElementById('service-select');
+            const professionalSelect = document.getElementById('professional-select');
+            const dateInput = document.getElementById('date-input');
             
-            showNotification('Pronto! Agendamento confirmado! Vou te mandar uma mensagem no WhatsApp 🎉', 'success');
+            if (!professionalSelect.value) {
+                showNotification('Escolhe um profissional primeiro! 👩‍💼', 'warning');
+                return;
+            }
+
+            const serviceName = serviceSelect.value.split(' - ')[0];
+            const servicePrice = serviceSelect.value.split('R$ ')[1];
+            const professionalId = professionalSelect.value;
+            const professionalName = getProfessionalName(professionalId);
+
+            // Create new appointment
+            const newAppointment = {
+                id: Date.now().toString(),
+                user_id: currentUser.user_id,
+                service: serviceName,
+                price: servicePrice,
+                date: dateInput.value,
+                time: selectedTime,
+                professional: professionalId,
+                professional_name: professionalName,
+                status: 'confirmed',
+                created_at: new Date().toISOString()
+            };
+
+            // Add to appointments data
+            appointmentsData.push(newAppointment);
+            saveAppointmentsData();
+
+            // Update display
+            updateAppointmentsDisplay();
+            
+            showNotification(`Pronto! Agendamento confirmado com ${professionalName}! Vou te mandar uma mensagem no WhatsApp 🎉`, 'success');
             closeModal();
             selectedTime = null;
+            selectedDate = null;
+            selectedService = null;
         }
 
         function closeModal() {
@@ -2199,7 +2530,16 @@
             document.querySelectorAll('.time-slot').forEach(slot => {
                 slot.classList.remove('selected');
             });
+            
+            // Reset form fields
+            const professionalSelect = document.getElementById('professional-select');
+            if (professionalSelect) {
+                professionalSelect.value = '';
+            }
+            
             selectedTime = null;
+            selectedDate = null;
+            selectedService = null;
         }
 
         // Preferences Functions
@@ -2244,18 +2584,50 @@
             showNotification('Seu agendamento: Corte + Escova amanhã às 14h com a Ana. Vai ficar lindo! 💖', 'info');
         }
 
-        function rescheduleAppointment() {
+        function rescheduleAppointment(appointmentId) {
+            if (appointmentId) {
+                // Cancel the existing appointment
+                const appointmentIndex = appointmentsData.findIndex(apt => apt.id === appointmentId);
+                if (appointmentIndex !== -1) {
+                    appointmentsData[appointmentIndex].status = 'cancelled';
+                    saveAppointmentsData();
+                }
+            }
             showNotification('Vamos remarcar então! Escolhe um novo horário 📅', 'info');
             quickBooking();
         }
 
-        function cancelAppointment() {
-            showNotification('Tem certeza? Se cancelar com menos de 24h, pode ter uma taxinha viu? 😅', 'warning');
+        function cancelAppointment(appointmentId) {
+            if (appointmentId) {
+                const appointmentIndex = appointmentsData.findIndex(apt => apt.id === appointmentId);
+                if (appointmentIndex !== -1) {
+                    appointmentsData[appointmentIndex].status = 'cancelled';
+                    saveAppointmentsData();
+                    updateAppointmentsDisplay();
+                    showNotification('Agendamento cancelado! Se precisar remarcar, é só chamar! 😊', 'info');
+                }
+            } else {
+                showNotification('Tem certeza? Se cancelar com menos de 24h, pode ter uma taxinha viu? 😅', 'warning');
+            }
         }
 
         function bookSpecialOffer() {
+            // Pre-select the promotional service
+            selectedService = 'promocao-corte-coloracao';
             showNotification('Que sorte! Essa promoção tá imperdível mesmo! ✨', 'success');
-            quickBooking();
+            
+            // Open booking modal with promotion pre-selected
+            document.getElementById('booking-modal').classList.add('show');
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            document.getElementById('date-input').value = tomorrow.toISOString().split('T')[0];
+            selectedDate = tomorrow.toISOString().split('T')[0];
+            
+            // Pre-select the promotional service in the dropdown
+            const serviceSelect = document.getElementById('service-select');
+            serviceSelect.value = 'Corte + Coloração (PROMOÇÃO) - R$ 120';
+            
+            updateAvailableTimeSlots();
         }
 
         function showGallery() {
@@ -2345,8 +2717,22 @@
         }
 
         function usePromotion() {
+            // Pre-select the promotional service
+            selectedService = 'promocao-corte-coloracao';
             showNotification('Promoção aplicada! Vamos agendar seu horário com desconto! ✨', 'success');
-            quickBooking();
+            
+            // Open booking modal with promotion pre-selected
+            document.getElementById('booking-modal').classList.add('show');
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            document.getElementById('date-input').value = tomorrow.toISOString().split('T')[0];
+            selectedDate = tomorrow.toISOString().split('T')[0];
+            
+            // Pre-select the promotional service in the dropdown
+            const serviceSelect = document.getElementById('service-select');
+            serviceSelect.value = 'Corte + Coloração (PROMOÇÃO) - R$ 120';
+            
+            updateAvailableTimeSlots();
         }
 
         // Feedback Functions
@@ -2498,5 +2884,5 @@
             }
         });
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'997e0b70a358e2a7',t:'MTc2MjAyNzkyMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'998cd89683b5e2a7',t:'MTc2MjE4MzEyNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
