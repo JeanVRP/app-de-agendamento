@@ -510,19 +510,38 @@
             background: var(--bg-card);
             border: 2px solid var(--border-color);
             border-radius: 16px;
-            padding: 16px;
+            padding: 20px 16px;
             margin-bottom: 12px;
             cursor: pointer;
             transition: all 0.2s ease;
             text-align: center;
             color: var(--text-primary);
+            font-weight: 600;
+            font-size: 16px;
+            min-height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-tap-highlight-color: rgba(100, 116, 139, 0.2);
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
         
-        .time-slot:hover, .time-slot.selected {
+        .time-slot:active {
+            transform: scale(0.98);
+            background: #64748b;
+            color: white;
             border-color: #64748b;
-            background: var(--bg-secondary);
+        }
+        
+        .time-slot.selected {
+            border-color: #64748b;
+            background: #64748b;
+            color: white;
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(100, 116, 139, 0.15);
+            box-shadow: 0 4px 15px rgba(100, 116, 139, 0.3);
         }
         
         .time-slot.unavailable {
@@ -530,6 +549,14 @@
             border-color: var(--text-secondary);
             color: var(--text-secondary);
             cursor: not-allowed;
+            opacity: 0.5;
+        }
+        
+        .time-slot.unavailable:active {
+            transform: none;
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border-color: var(--text-secondary);
         }
         
         .profile-avatar {
@@ -1748,22 +1775,22 @@
      </div>
      <div class="form-group"><label class="form-label">Horários disponíveis</label>
       <div class="grid grid-cols-3 gap-2">
-       <div class="time-slot haptic-feedback" onclick="selectTime(this, '09:00')">
+       <div class="time-slot" data-time="09:00">
         09:00
        </div>
-       <div class="time-slot haptic-feedback" onclick="selectTime(this, '10:00')">
+       <div class="time-slot" data-time="10:00">
         10:00
        </div>
-       <div class="time-slot unavailable">
+       <div class="time-slot" data-time="11:00">
         11:00
        </div>
-       <div class="time-slot haptic-feedback" onclick="selectTime(this, '14:00')">
+       <div class="time-slot" data-time="14:00">
         14:00
        </div>
-       <div class="time-slot haptic-feedback" onclick="selectTime(this, '15:00')">
+       <div class="time-slot" data-time="15:00">
         15:00
        </div>
-       <div class="time-slot haptic-feedback" onclick="selectTime(this, '16:00')">
+       <div class="time-slot" data-time="16:00">
         16:00
        </div>
       </div>
@@ -2415,13 +2442,122 @@
             tomorrow.setDate(tomorrow.getDate() + 1);
             document.getElementById('date-input').value = tomorrow.toISOString().split('T')[0];
             selectedDate = tomorrow.toISOString().split('T')[0];
+            
+            // Reset service selection to default
+            const serviceSelect = document.getElementById('service-select');
+            serviceSelect.selectedIndex = 0; // Select first option (Corte de Cabelo)
+            
+            // Inicializar eventos dos horários
+            initializeTimeSlots();
             updateAvailableTimeSlots();
+        }
+
+        function initializeTimeSlots() {
+            const timeSlots = document.querySelectorAll('.time-slot');
+            
+            timeSlots.forEach(slot => {
+                const time = slot.dataset.time;
+                
+                // Remover eventos anteriores
+                slot.replaceWith(slot.cloneNode(true));
+            });
+            
+            // Re-selecionar após clonagem
+            const newTimeSlots = document.querySelectorAll('.time-slot');
+            
+            newTimeSlots.forEach(slot => {
+                const time = slot.dataset.time;
+                
+                // Evento de clique
+                slot.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    if (this.classList.contains('unavailable')) {
+                        showNotification('Esse horário não está disponível! Escolha outro 😊', 'warning');
+                        return;
+                    }
+                    
+                    selectTime(this, time);
+                });
+                
+                // Eventos de toque para mobile
+                slot.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    if (!this.classList.contains('unavailable')) {
+                        this.style.transform = 'scale(0.98)';
+                        this.style.background = '#64748b';
+                        this.style.color = 'white';
+                        this.style.borderColor = '#64748b';
+                    }
+                });
+                
+                slot.addEventListener('touchend', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    if (this.classList.contains('unavailable')) {
+                        showNotification('Esse horário não está disponível! Escolha outro 😊', 'warning');
+                        return;
+                    }
+                    
+                    setTimeout(() => {
+                        if (!this.classList.contains('selected')) {
+                            this.style.transform = '';
+                            this.style.background = '';
+                            this.style.color = '';
+                            this.style.borderColor = '';
+                        }
+                    }, 100);
+                    
+                    selectTime(this, time);
+                });
+                
+                slot.addEventListener('touchcancel', function(e) {
+                    this.style.transform = '';
+                    this.style.background = '';
+                    this.style.color = '';
+                    this.style.borderColor = '';
+                });
+            });
         }
 
         function selectService(serviceId) {
             selectedService = serviceId;
             showNotification(`Ótima escolha! Agora é só escolher o dia e horário 😊`, 'success');
-            quickBooking();
+            
+            // Open booking modal
+            document.getElementById('booking-modal').classList.add('show');
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            document.getElementById('date-input').value = tomorrow.toISOString().split('T')[0];
+            selectedDate = tomorrow.toISOString().split('T')[0];
+            
+            // Pre-select the chosen service based on serviceId
+            const serviceSelect = document.getElementById('service-select');
+            const serviceMap = {
+                'corte-feminino': 'Corte de Cabelo - R$ 50',
+                'coloracao': 'Coloração - R$ 120',
+                'escova': 'Escova - R$ 35',
+                'manicure': 'Manicure - R$ 25',
+                'sobrancelha': 'Design de Sobrancelha - R$ 30',
+                'pedicure': 'Pedicure - R$ 30',
+                'progressiva': 'Progressiva - R$ 180',
+                'luzes': 'Luzes/Mechas - R$ 150',
+                'hidratacao': 'Hidratação - R$ 60',
+                'botox-capilar': 'Botox Capilar - R$ 100',
+                'penteado': 'Penteado - R$ 80',
+                'limpeza-pele': 'Limpeza de Pele - R$ 70',
+                'maquiagem': 'Maquiagem - R$ 90'
+            };
+            
+            if (serviceMap[serviceId]) {
+                serviceSelect.value = serviceMap[serviceId];
+            }
+            
+            // Inicializar eventos dos horários
+            initializeTimeSlots();
+            updateAvailableTimeSlots();
         }
 
         function updateAvailableTimeSlots() {
@@ -2430,44 +2566,156 @@
             const selectedDate = dateInput.value;
             const selectedProfessional = professionalSelect.value;
             
-            if (!selectedDate || !selectedProfessional) {
-                // Disable all time slots if date or professional not selected
-                const timeSlots = document.querySelectorAll('.time-slot');
-                timeSlots.forEach(slot => {
-                    slot.classList.add('unavailable');
-                    slot.classList.remove('selected');
-                    slot.onclick = null;
-                });
-                return;
-            }
-
             const timeSlots = document.querySelectorAll('.time-slot');
             const availableTimes = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00'];
             
+            // Se não tem data ou profissional selecionado, deixa todos disponíveis para teste
+            if (!selectedDate) {
+                // Habilita todos os horários se não tem data
+                timeSlots.forEach((slot, index) => {
+                    const time = availableTimes[index];
+                    slot.classList.remove('unavailable', 'selected');
+                    slot.style.pointerEvents = 'auto';
+                    slot.style.cursor = 'pointer';
+                    
+                    // Limpar eventos anteriores
+                    slot.onclick = null;
+                    slot.ontouchstart = null;
+                    slot.ontouchend = null;
+                    slot.ontouchcancel = null;
+                    
+                    // Adicionar evento de clique simples
+                    slot.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        selectTime(this, time);
+                    });
+                    
+                    // Eventos de toque para mobile
+                    slot.addEventListener('touchstart', function(e) {
+                        e.preventDefault();
+                        this.style.transform = 'scale(0.98)';
+                        this.style.background = '#64748b';
+                        this.style.color = 'white';
+                        this.style.borderColor = '#64748b';
+                    });
+                    
+                    slot.addEventListener('touchend', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setTimeout(() => {
+                            if (!this.classList.contains('selected')) {
+                                this.style.transform = '';
+                                this.style.background = '';
+                                this.style.color = '';
+                                this.style.borderColor = '';
+                            }
+                        }, 100);
+                        selectTime(this, time);
+                    });
+                    
+                    slot.addEventListener('touchcancel', function(e) {
+                        this.style.transform = '';
+                        this.style.background = '';
+                        this.style.color = '';
+                        this.style.borderColor = '';
+                    });
+                });
+                return;
+            }
+            
+            // Se tem data e profissional, verifica disponibilidade
             timeSlots.forEach((slot, index) => {
                 const time = availableTimes[index];
-                const isAvailable = isTimeSlotAvailable(selectedDate, time, selectedProfessional);
+                let isAvailable = true;
                 
+                // Se tem profissional selecionado, verifica conflitos
+                if (selectedProfessional) {
+                    isAvailable = isTimeSlotAvailable(selectedDate, time, selectedProfessional);
+                }
+                
+                // Reset classes and events
                 slot.classList.remove('unavailable', 'selected');
+                slot.style.pointerEvents = 'auto';
+                slot.style.cursor = 'pointer';
+                
+                // Limpar eventos anteriores
                 slot.onclick = null;
+                slot.ontouchstart = null;
+                slot.ontouchend = null;
+                slot.ontouchcancel = null;
                 
                 if (isAvailable) {
-                    slot.classList.remove('unavailable');
-                    slot.onclick = function() { selectTime(this, time); };
+                    // Horário disponível
+                    slot.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        selectTime(this, time);
+                    });
+                    
+                    slot.addEventListener('touchstart', function(e) {
+                        e.preventDefault();
+                        this.style.transform = 'scale(0.98)';
+                        this.style.background = '#64748b';
+                        this.style.color = 'white';
+                        this.style.borderColor = '#64748b';
+                    });
+                    
+                    slot.addEventListener('touchend', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setTimeout(() => {
+                            if (!this.classList.contains('selected')) {
+                                this.style.transform = '';
+                                this.style.background = '';
+                                this.style.color = '';
+                                this.style.borderColor = '';
+                            }
+                        }, 100);
+                        selectTime(this, time);
+                    });
+                    
+                    slot.addEventListener('touchcancel', function(e) {
+                        this.style.transform = '';
+                        this.style.background = '';
+                        this.style.color = '';
+                        this.style.borderColor = '';
+                    });
+                    
                 } else {
+                    // Horário indisponível
                     slot.classList.add('unavailable');
-                    slot.onclick = null;
+                    slot.style.pointerEvents = 'none';
+                    slot.style.cursor = 'not-allowed';
                 }
             });
+            
+            // Reset selected time when slots are updated
+            selectedTime = null;
         }
 
         function selectTime(element, time) {
+            // Verificar se o horário está disponível
+            if (element.classList.contains('unavailable')) {
+                showNotification('Esse horário não está disponível! Escolha outro 😊', 'warning');
+                return;
+            }
+            
+            // Remover seleção anterior
             document.querySelectorAll('.time-slot').forEach(slot => {
                 slot.classList.remove('selected');
             });
             
+            // Selecionar novo horário
             element.classList.add('selected');
             selectedTime = time;
+            
+            // Feedback visual e sonoro para mobile
+            if (navigator.vibrate) {
+                navigator.vibrate(50); // Vibração leve
+            }
+            
+            showNotification(`Horário ${time} selecionado! ⏰`, 'success');
         }
 
         function confirmBooking() {
@@ -2495,28 +2743,49 @@
             const professionalId = professionalSelect.value;
             const professionalName = getProfessionalName(professionalId);
 
-            // Create new appointment
-            const newAppointment = {
-                id: Date.now().toString(),
-                user_id: currentUser.user_id,
-                service: serviceName,
-                price: servicePrice,
-                date: dateInput.value,
-                time: selectedTime,
-                professional: professionalId,
-                professional_name: professionalName,
-                status: 'confirmed',
-                created_at: new Date().toISOString()
-            };
+            if (appointmentToReschedule) {
+                // This is a reschedule - update existing appointment
+                const appointmentIndex = appointmentsData.findIndex(apt => apt.id === appointmentToReschedule.id);
+                if (appointmentIndex !== -1) {
+                    appointmentsData[appointmentIndex] = {
+                        ...appointmentToReschedule,
+                        service: serviceName,
+                        price: servicePrice,
+                        date: dateInput.value,
+                        time: selectedTime,
+                        professional: professionalId,
+                        professional_name: professionalName,
+                        status: 'confirmed',
+                        updated_at: new Date().toISOString()
+                    };
+                    
+                    showNotification(`Horário remarcado com sucesso! Novo agendamento: ${professionalName} em ${dateInput.value} às ${selectedTime} 🎉`, 'success');
+                }
+                appointmentToReschedule = null;
+            } else {
+                // Create new appointment
+                const newAppointment = {
+                    id: Date.now().toString(),
+                    user_id: currentUser.user_id,
+                    service: serviceName,
+                    price: servicePrice,
+                    date: dateInput.value,
+                    time: selectedTime,
+                    professional: professionalId,
+                    professional_name: professionalName,
+                    status: 'confirmed',
+                    created_at: new Date().toISOString()
+                };
 
-            // Add to appointments data
-            appointmentsData.push(newAppointment);
+                // Add to appointments data
+                appointmentsData.push(newAppointment);
+                showNotification(`Pronto! Agendamento confirmado com ${professionalName}! Vou te mandar uma mensagem no WhatsApp 🎉`, 'success');
+            }
+
+            // Save and update display
             saveAppointmentsData();
-
-            // Update display
             updateAppointmentsDisplay();
             
-            showNotification(`Pronto! Agendamento confirmado com ${professionalName}! Vou te mandar uma mensagem no WhatsApp 🎉`, 'success');
             closeModal();
             selectedTime = null;
             selectedDate = null;
@@ -2540,6 +2809,7 @@
             selectedTime = null;
             selectedDate = null;
             selectedService = null;
+            appointmentToReschedule = null; // Clear reschedule data
         }
 
         // Preferences Functions
@@ -2584,20 +2854,97 @@
             showNotification('Seu agendamento: Corte + Escova amanhã às 14h com a Ana. Vai ficar lindo! 💖', 'info');
         }
 
+        let appointmentToReschedule = null;
+
         function rescheduleAppointment(appointmentId) {
             if (appointmentId) {
-                // Cancel the existing appointment
-                const appointmentIndex = appointmentsData.findIndex(apt => apt.id === appointmentId);
-                if (appointmentIndex !== -1) {
-                    appointmentsData[appointmentIndex].status = 'cancelled';
-                    saveAppointmentsData();
+                // Store the appointment to reschedule
+                appointmentToReschedule = appointmentsData.find(apt => apt.id === appointmentId);
+                if (appointmentToReschedule) {
+                    showNotification('Vamos remarcar então! Escolhe um novo horário 📅', 'info');
+                    
+                    // Open booking modal with current service pre-selected
+                    document.getElementById('booking-modal').classList.add('show');
+                    const tomorrow = new Date();
+                    tomorrow.setDate(tomorrow.getDate() + 1);
+                    document.getElementById('date-input').value = tomorrow.toISOString().split('T')[0];
+                    selectedDate = tomorrow.toISOString().split('T')[0];
+                    
+                    // Pre-select current service and professional
+                    const serviceSelect = document.getElementById('service-select');
+                    const professionalSelect = document.getElementById('professional-select');
+                    
+                    // Find matching service option
+                    for (let i = 0; i < serviceSelect.options.length; i++) {
+                        if (serviceSelect.options[i].text.includes(appointmentToReschedule.service)) {
+                            serviceSelect.selectedIndex = i;
+                            break;
+                        }
+                    }
+                    
+                    // Pre-select professional
+                    professionalSelect.value = appointmentToReschedule.professional;
+                    
+                    initializeTimeSlots();
+                    updateAvailableTimeSlots();
                 }
+            } else {
+                showNotification('Vamos remarcar então! Escolhe um novo horário 📅', 'info');
+                quickBooking();
             }
-            showNotification('Vamos remarcar então! Escolhe um novo horário 📅', 'info');
-            quickBooking();
         }
 
         function cancelAppointment(appointmentId) {
+            if (!appointmentId) {
+                // Show inline confirmation for generic cancellation
+                showCancelConfirmation();
+                return;
+            }
+            
+            // Show inline confirmation for specific appointment
+            showCancelConfirmation(appointmentId);
+        }
+
+        function showCancelConfirmation(appointmentId = null) {
+            // Create confirmation overlay
+            const confirmationOverlay = document.createElement('div');
+            confirmationOverlay.className = 'modal show';
+            confirmationOverlay.innerHTML = `
+                <div class="modal-content" style="margin: auto; max-width: 400px; border-radius: 24px;">
+                    <div class="modal-body" style="text-align: center; padding: 32px 24px;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">⚠️</div>
+                        <h3 style="font-size: 20px; font-weight: bold; margin-bottom: 16px; color: var(--text-primary);">
+                            Cancelar agendamento?
+                        </h3>
+                        <p style="color: var(--text-secondary); margin-bottom: 8px; line-height: 1.5;">
+                            Cancelamentos com menos de 24h de antecedência podem ter uma taxa de R$ 15.
+                        </p>
+                        <p style="color: var(--text-secondary); margin-bottom: 24px; font-weight: 500;">
+                            Tem certeza que quer cancelar? 😔
+                        </p>
+                        <div style="display: flex; gap: 12px;">
+                            <button onclick="closeCancelConfirmation()" class="btn-secondary" style="flex: 1;">
+                                Não, deixa quieto
+                            </button>
+                            <button onclick="confirmCancellation('${appointmentId || ''}')" class="btn-primary" style="flex: 1; background: #ef4444;">
+                                Sim, cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(confirmationOverlay);
+        }
+
+        function closeCancelConfirmation() {
+            const overlay = document.querySelector('.modal.show:last-child');
+            if (overlay) {
+                overlay.remove();
+            }
+        }
+
+        function confirmCancellation(appointmentId) {
             if (appointmentId) {
                 const appointmentIndex = appointmentsData.findIndex(apt => apt.id === appointmentId);
                 if (appointmentIndex !== -1) {
@@ -2606,9 +2953,9 @@
                     updateAppointmentsDisplay();
                     showNotification('Agendamento cancelado! Se precisar remarcar, é só chamar! 😊', 'info');
                 }
-            } else {
-                showNotification('Tem certeza? Se cancelar com menos de 24h, pode ter uma taxinha viu? 😅', 'warning');
             }
+            
+            closeCancelConfirmation();
         }
 
         function bookSpecialOffer() {
@@ -2884,5 +3231,5 @@
             }
         });
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'998cd89683b5e2a7',t:'MTc2MjE4MzEyNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'998cf19c878ee2a7',t:'MTc2MjE4NDE1MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
